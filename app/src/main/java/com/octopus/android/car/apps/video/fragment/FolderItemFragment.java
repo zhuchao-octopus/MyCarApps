@@ -1,0 +1,166 @@
+package com.octopus.android.car.apps.video.fragment;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.octopus.android.car.apps.R;
+import com.octopus.android.car.apps.video.activity.VideoPlayingActivity;
+import com.octopus.android.car.apps.video.adapter.FolderItemRecyclerViewAdapter;
+import com.zhuchao.android.fbase.DataID;
+import com.zhuchao.android.fbase.FileUtils;
+import com.zhuchao.android.fbase.ObjectList;
+import com.zhuchao.android.fbase.TTask;
+import com.zhuchao.android.fbase.ThreadUtils;
+import com.zhuchao.android.fbase.bean.FolderBean;
+import com.zhuchao.android.session.BaseFragment;
+import com.zhuchao.android.session.Cabinet;
+import com.zhuchao.android.video.OMedia;
+import com.zhuchao.android.video.VideoList;
+
+/**
+ * A fragment representing a list of Items.
+ */
+public class FolderItemFragment extends BaseFragment {
+    private final String TAG = "FolderItemFragment";
+    // TODO: Customize parameter argument names
+    private static final String ARG_COLUMN_COUNT = "column-count";
+    // TODO: Customize parameters
+    private int mColumnCount = 1;
+    private FolderItemRecyclerViewAdapter mFolderItemRecyclerViewAdapter;
+    private RecyclerView mRecyclerView;
+    private TextView emptyView;
+    private ObjectList mFolderList = new ObjectList();
+    private VideoList mVideoList;
+    private final TTask tTask = new TTask("Scanning.folder");
+
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+    public FolderItemFragment() {
+    }
+
+    // TODO: Customize parameter initialization
+    @SuppressWarnings("unused")
+    public static FolderItemFragment newInstance(int columnCount) {
+        FolderItemFragment fragment = new FolderItemFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+        }
+        tTask.invoke(tag -> mFolderList = FileUtils.getAllSubDirList2(getContext(), "/", DataID.MEDIA_TYPE_ID_AllDIR, DataID.MEDIA_TYPE_ID_VIDEO));
+        tTask.callbackHandler(this::onEventTaskFinished);
+        tTask.startAgain();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_item_list4, container, false);
+        emptyView = view.findViewById(R.id.empty_view);
+        mRecyclerView = view.findViewById(R.id.recycler_view);
+        // Set the adapter
+
+        Context context = view.getContext();
+        if (mColumnCount <= 1) {
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        }
+
+        mFolderItemRecyclerViewAdapter = new FolderItemRecyclerViewAdapter(mFolderList.toList());
+        mRecyclerView.setAdapter(mFolderItemRecyclerViewAdapter);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        updateData(null);
+        mFolderItemRecyclerViewAdapter.setOnItemClickListener(new FolderItemRecyclerViewAdapter.OnItemClickListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onItemClick(int position, FolderBean folderBean) {
+                if (folderBean.isFileBean()) {
+                   if(mVideoList != null) {
+                       mVideoList.loadFromStringList(folderBean.getParent().getFileList());
+                       Cabinet.getPlayManager().addOnePlayList(mVideoList);
+                       OMedia oMedia = mVideoList.findByPath(folderBean.getPathName());/// Cabinet.getPlayManager().getOMediaFromPlayLists(folderBean.getPathName());
+                       Cabinet.getPlayManager().setMediaToPlay(oMedia);
+                       openLocalActivity(VideoPlayingActivity.class);
+                   }
+                } else {
+                    mVideoList = new VideoList(folderBean.getPathName());
+                    updateData(folderBean);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //MMLog.d(TAG, "onResume()");
+        onFragmentVisible(false);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        //MMLog.d(TAG, "onHiddenChanged()="+hidden);
+        onFragmentVisible(hidden);
+    }
+
+    private void onFragmentVisible(boolean hidden) {
+        ///MMLog.d(TAG, "onFragmentVisible()=" + isHidden() + " " + isVisible());
+        // 在这里处理Fragment显示的逻辑
+        updateData(null);
+    }
+
+    private void checkIfEmpty() {
+        if (mFolderItemRecyclerViewAdapter.getItemCount() == 0) {
+            mRecyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void updateData(FolderBean folderBean) {
+        if (mRecyclerView == null) return;
+        if (folderBean == null || folderBean.getName().equals("..")) {//根目录
+            mFolderItemRecyclerViewAdapter.setData(mFolderList.toList());
+            mRecyclerView.setAdapter(mFolderItemRecyclerViewAdapter);
+            mFolderItemRecyclerViewAdapter.notifyDataSetChanged();
+            checkIfEmpty();
+        } else if(folderBean.getSubItemCount() > 0){
+            mFolderItemRecyclerViewAdapter.setData(folderBean.fileListToFolderBean());
+            mFolderItemRecyclerViewAdapter.notifyDataSetChanged();
+        }
+        ///mFolderList.printAll();
+    }
+
+    private void onEventTaskFinished(Object obj, int status) {
+        ThreadUtils.runOnMainUiThread(() -> updateData(null));
+    }
+}

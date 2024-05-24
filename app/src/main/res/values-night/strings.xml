@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_video">Video</string>
+    <string name="title_activity_radio">Radio</string>
+    <string name="title_activity_audio">Audio</string>
+    <string name="tab_name_usb">USB</string>
+    <string name="tab_name_sd">SD</string>
+    <string name="tab_name_folder">Folder</string>
+    <string name="textview_default">........</string>
+</resources>

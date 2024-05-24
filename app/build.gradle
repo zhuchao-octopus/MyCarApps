@@ -1,0 +1,90 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.octopus.android.car.apps'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.octopus.android.car.apps"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    viewBinding {
+        enabled = true
+    }
+    packagingOptions {
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+
+        pickFirst 'lib/x86/libopencv_java4.so'
+        pickFirst 'lib/x86_64/libopencv_java4.so'
+        pickFirst 'lib/armeabi-v7a/libopencv_java4.so'
+        pickFirst 'lib/arm64-v8a/libopencv_java4.so'
+    }
+
+    signingConfigs {
+        relase {
+            storeFile file(signature.storeFile)
+            keyAlias signature.keyAlias
+            keyPassword signature.keyPassword
+            storePassword signature.storePassword
+        }
+        debug {
+            storeFile file(signature.storeFile)
+            keyAlias signature.keyAlias
+            keyPassword signature.keyPassword
+            storePassword signature.storePassword
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+    implementation 'androidx.navigation:navigation-fragment:2.6.0'
+    implementation 'androidx.navigation:navigation-ui:2.6.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.0'
+    implementation "androidx.paging:paging-runtime:3.1.1"
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation('com.zhuchao.android:libDecodeCore:1.6@aar')//音视频解码库
+    implementation('com.zhuchao.android:libFBaseUtils:2.1@aar')//框架基础类
+    implementation('com.zhuchao.android:libGPersistUtils:1.1@aar')//数据存储
+    implementation('com.zhuchao.android:libINetUtils:2.1@aar')//网络访问
+    implementation('com.zhuchao.android:libJOSUtils:1.4:@aar')//平台接口
+    implementation('com.zhuchao.android:libCameraController:1.0@aar')//相机控制
+    implementation('com.zhuchao.android:libOpenComputerVision:1.0@aar')//计算机视觉
+    implementation('com.zhuchao.android:libOpenDetection:1.0@aar')//人脸检测识别
+    implementation('com.zhuchao.android:libMediaUtils:1.9@aar')//媒体库
+    implementation('com.zhuchao.android:libPlayerUtils:3.0@aar')//播放器
+    implementation('com.zhuchao.android:libSessionUtils:2.9@aar')//杂项
+}
