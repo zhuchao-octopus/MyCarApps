@@ -16,7 +16,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="NestedWeights" />
 
-
     <LinearLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"
@@ -222,8 +221,8 @@
             android:layout_width="157dp"
             android:layout_height="57dp"
             android:layout_marginTop="5dp"
-            android:paddingHorizontal="50dp"
             android:clickable="true"
+            android:paddingHorizontal="50dp"
             android:src="@drawable/selector_eq" />
 
     </LinearLayout>

@@ -97,17 +97,9 @@ public class PlayingItemFragment extends BaseFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        //MMLog.d(TAG, "onResume()");
-        onFragmentVisible(false);
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        //MMLog.d(TAG, "onHiddenChanged()="+hidden);
-        onFragmentVisible(hidden);
+    public void onFragmentVisible(boolean isVisible) {
+        super.onFragmentVisible(isVisible);
+        updateData(0);
     }
 
     private void checkIfEmpty() {
@@ -118,12 +110,6 @@ public class PlayingItemFragment extends BaseFragment {
             mRecyclerView.setVisibility(View.VISIBLE);
             mEmptyView.setVisibility(View.GONE);
         }
-    }
-
-    private void onFragmentVisible(boolean hidden) {
-        //MMLog.d(TAG, "onFragmentVisible()=" + isHidden() + " " + isVisible());
-        // 在这里处理Fragment显示的逻辑
-        updateData(0);
     }
 
     @TCourierSubscribe(threadMode = MethodThreadMode.threadMode.MAIN)
