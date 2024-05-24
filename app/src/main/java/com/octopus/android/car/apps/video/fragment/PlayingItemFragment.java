@@ -20,8 +20,8 @@ import com.zhuchao.android.fbase.MessageEvent;
 import com.zhuchao.android.fbase.MethodThreadMode;
 import com.zhuchao.android.fbase.TCourierSubscribe;
 import com.zhuchao.android.fbase.eventinterface.EventCourierInterface;
-import com.zhuchao.android.session.BaseFragment;
 import com.zhuchao.android.session.Cabinet;
+import com.zhuchao.android.session.base.BaseFragment;
 import com.zhuchao.android.video.OMedia;
 import com.zhuchao.android.video.VideoList;
 
@@ -67,7 +67,7 @@ public class PlayingItemFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list1, container, false);
+        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         mEmptyView = view.findViewById(R.id.empty_view);
         mRecyclerView = view.findViewById(R.id.recycler_view);
         /// Set the adapter

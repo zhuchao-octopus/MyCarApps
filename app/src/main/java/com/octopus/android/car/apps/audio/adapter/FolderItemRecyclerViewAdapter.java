@@ -1,4 +1,4 @@
-package com.octopus.android.car.apps.video.adapter;
+package com.octopus.android.car.apps.audio.adapter;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;

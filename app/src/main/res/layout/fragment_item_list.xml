@@ -18,9 +18,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginRight="5dp"
         android:scrollbars="vertical"
-        android:background="?attr/selectableItemBackground"
         app:layoutManager="LinearLayoutManager"
-        tools:context=".video.fragment.USBItemFragment"
         tools:listitem="@layout/fragment_item" />
 
     <TextView

@@ -22,8 +22,8 @@ import com.octopus.android.car.apps.databinding.ActivityVideoPlayingBinding;
 import com.zhuchao.android.fbase.PlaybackEvent;
 import com.zhuchao.android.fbase.PlayerStatusInfo;
 import com.zhuchao.android.fbase.eventinterface.PlayerCallback;
-import com.zhuchao.android.session.BaseActivity;
 import com.zhuchao.android.session.Cabinet;
+import com.zhuchao.android.session.base.BaseActivity;
 
 import java.util.Objects;
 
@@ -193,32 +193,6 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
     }
 
     @Override
-    public void onEventPlayerStatus(PlayerStatusInfo playerStatusInfo) {
-        mProgressSeekBar.setMax((int) playerStatusInfo.getLength());
-        mProgressSeekBar.setProgress((int) playerStatusInfo.getTimeChanged());
-        mTextViewCurrentTime.setText(convertMillisToTime(playerStatusInfo.getTimeChanged()));
-        mTextViewTotalTime.setText(convertMillisToTime(playerStatusInfo.getLength()));
-
-        switch (playerStatusInfo.getEventType()) {
-            case PlaybackEvent.Status_Ended:
-                mProgressSeekBar.setProgress(mProgressSeekBar.getMax());
-                break;
-            case PlaybackEvent.Status_Stopped:
-            case PlaybackEvent.Status_NothingIdle:
-                finish();
-                break;
-            case PlaybackEvent.Status_Playing:
-                mImageViewPlayPause.setImageResource(R.drawable.selector_stop);
-                break;
-            case PlaybackEvent.Status_Paused:
-                mImageViewPlayPause.setImageResource(R.drawable.selector_play);
-            default:
-                break;
-        }
-
-    }
-
-    @Override
     public void onClick(View v) {
         ///findViewById(R.id.ivList).setOnClickListener(this);
         ///findViewById(R.id.ivPrev).setOnClickListener(this);
@@ -312,5 +286,31 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+
+    @Override
+    public void onEventPlayerStatus(PlayerStatusInfo playerStatusInfo) {
+        mProgressSeekBar.setMax((int) playerStatusInfo.getLength());
+        mProgressSeekBar.setProgress((int) playerStatusInfo.getTimeChanged());
+        mTextViewCurrentTime.setText(convertMillisToTime(playerStatusInfo.getTimeChanged()));
+        mTextViewTotalTime.setText(convertMillisToTime(playerStatusInfo.getLength()));
+
+        switch (playerStatusInfo.getEventType()) {
+            case PlaybackEvent.Status_Ended:
+                mProgressSeekBar.setProgress(mProgressSeekBar.getMax());
+                break;
+            case PlaybackEvent.Status_Stopped:
+            case PlaybackEvent.Status_NothingIdle:
+                finish();
+                break;
+            case PlaybackEvent.Status_Playing:
+                mImageViewPlayPause.setImageResource(R.drawable.selector_stop);
+                break;
+            case PlaybackEvent.Status_Paused:
+                mImageViewPlayPause.setImageResource(R.drawable.selector_play);
+            default:
+                break;
+        }
     }
 }

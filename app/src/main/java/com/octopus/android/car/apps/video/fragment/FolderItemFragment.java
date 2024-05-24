@@ -22,8 +22,8 @@ import com.zhuchao.android.fbase.ObjectList;
 import com.zhuchao.android.fbase.TTask;
 import com.zhuchao.android.fbase.ThreadUtils;
 import com.zhuchao.android.fbase.bean.FolderBean;
-import com.zhuchao.android.session.BaseFragment;
 import com.zhuchao.android.session.Cabinet;
+import com.zhuchao.android.session.base.BaseFragment;
 import com.zhuchao.android.video.OMedia;
 import com.zhuchao.android.video.VideoList;
 
@@ -74,7 +74,7 @@ public class FolderItemFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list4, container, false);
+        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         emptyView = view.findViewById(R.id.empty_view);
         mRecyclerView = view.findViewById(R.id.recycler_view);
         // Set the adapter
@@ -100,13 +100,13 @@ public class FolderItemFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, FolderBean folderBean) {
                 if (folderBean.isFileBean()) {
-                   if(mVideoList != null) {
-                       mVideoList.loadFromStringList(folderBean.getParent().getFileList());
-                       Cabinet.getPlayManager().addOnePlayList(mVideoList);
-                       OMedia oMedia = mVideoList.findByPath(folderBean.getPathName());/// Cabinet.getPlayManager().getOMediaFromPlayLists(folderBean.getPathName());
-                       Cabinet.getPlayManager().setMediaToPlay(oMedia);
-                       openLocalActivity(VideoPlayingActivity.class);
-                   }
+                    if (mVideoList != null) {
+                        mVideoList.loadFromStringList(folderBean.getParent().getFileList());
+                        Cabinet.getPlayManager().addOnePlayList(mVideoList);
+                        OMedia oMedia = mVideoList.findByPath(folderBean.getPathName());/// Cabinet.getPlayManager().getOMediaFromPlayLists(folderBean.getPathName());
+                        Cabinet.getPlayManager().setMediaToPlay(oMedia);
+                        openLocalActivity(VideoPlayingActivity.class);
+                    }
                 } else {
                     mVideoList = new VideoList(folderBean.getPathName());
                     updateData(folderBean);
@@ -153,7 +153,7 @@ public class FolderItemFragment extends BaseFragment {
             mRecyclerView.setAdapter(mFolderItemRecyclerViewAdapter);
             mFolderItemRecyclerViewAdapter.notifyDataSetChanged();
             checkIfEmpty();
-        } else if(folderBean.getSubItemCount() > 0){
+        } else if (folderBean.getSubItemCount() > 0) {
             mFolderItemRecyclerViewAdapter.setData(folderBean.fileListToFolderBean());
             mFolderItemRecyclerViewAdapter.notifyDataSetChanged();
         }

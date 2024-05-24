@@ -1,4 +1,4 @@
-package com.octopus.android.car.apps.video.fragment;
+package com.octopus.android.car.apps.audio.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,9 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.octopus.android.car.apps.R;
-import com.octopus.android.car.apps.video.activity.VideoPlayingActivity;
-import com.octopus.android.car.apps.video.adapter.OMediaItemRecyclerViewAdapter;
-import com.zhuchao.android.fbase.MMLog;
+import com.octopus.android.car.apps.audio.activity.MusicPlayingActivity;
+import com.octopus.android.car.apps.audio.adapter.OMediaItemRecyclerViewAdapter;
 import com.zhuchao.android.fbase.MessageEvent;
 import com.zhuchao.android.fbase.MethodThreadMode;
 import com.zhuchao.android.fbase.TCourierSubscribe;
@@ -29,8 +28,8 @@ import com.zhuchao.android.video.VideoList;
 /**
  * A fragment representing a list of Items.
  */
-public class USBItemFragment extends BaseFragment {
-    private final String TAG = "USBItemFragment";
+public class PlayingItemFragment extends BaseFragment {
+    private final String TAG = "PlayItemFragment";
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
@@ -38,19 +37,19 @@ public class USBItemFragment extends BaseFragment {
     private OMediaItemRecyclerViewAdapter mOMediaItemRecyclerViewAdapter;
     private RecyclerView mRecyclerView;
     private TextView mEmptyView;
-    private VideoList mVideoList = Cabinet.getPlayManager().getLocalUSBMediaVideos();
+    private VideoList mVideoList = Cabinet.getPlayManager().getPlayingHistoryList();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public USBItemFragment() {
+    public PlayingItemFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static USBItemFragment newInstance(int columnCount) {
-        USBItemFragment fragment = new USBItemFragment();
+    public static PlayingItemFragment newInstance(int columnCount) {
+        PlayingItemFragment fragment = new PlayingItemFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -68,12 +67,10 @@ public class USBItemFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         mEmptyView = view.findViewById(R.id.empty_view);
         mRecyclerView = view.findViewById(R.id.recycler_view);
         Context context = view.getContext();
-
         if (mColumnCount <= 1) {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         } else {
@@ -92,12 +89,11 @@ public class USBItemFragment extends BaseFragment {
             public void onItemClick(int position, OMedia oMedia) {
                 if (oMedia != null) {
                     Cabinet.getPlayManager().setMediaToPlay(oMedia);
-                    openLocalActivity(VideoPlayingActivity.class);
-                    ///Cabinet.getPlayManager().printAllPlayLists();
-                    ///Cabinet.getPlayManager().getLocalUSBMediaVideos().printAll();
+                    openLocalActivity(MusicPlayingActivity.class);
                 }
             }
         });
+
     }
 
     @Override
@@ -114,12 +110,6 @@ public class USBItemFragment extends BaseFragment {
         onFragmentVisible(hidden);
     }
 
-    private void onFragmentVisible(boolean hidden) {
-        ///MMLog.d(TAG, "onFragmentVisible()=" + isHidden() + " " + isVisible());
-        /// 在这里处理Fragment显示的逻辑
-        updateData(0);
-    }
-
     private void checkIfEmpty() {
         if (mOMediaItemRecyclerViewAdapter.getItemCount() == 0) {
             mRecyclerView.setVisibility(View.GONE);
@@ -130,19 +120,24 @@ public class USBItemFragment extends BaseFragment {
         }
     }
 
+    private void onFragmentVisible(boolean hidden) {
+        //MMLog.d(TAG, "onFragmentVisible()=" + isHidden() + " " + isVisible());
+        // 在这里处理Fragment显示的逻辑
+        updateData(0);
+    }
+
     @TCourierSubscribe(threadMode = MethodThreadMode.threadMode.MAIN)
     public boolean onTCourierSubscribeEvent(EventCourierInterface eventCourierInterface) {
         switch (eventCourierInterface.getId()) { ///加载外部数据
-            case MessageEvent.MESSAGE_EVENT_MEDIA_LIBRARY:
-            case MessageEvent.MESSAGE_EVENT_OCTOPUS_AIDL_START_REGISTER:
-                ///Cabinet.getPlayManager().updateMoviesToPlayList();
-                break;
             case MessageEvent.MESSAGE_EVENT_LOCAL_VIDEO:
             case MessageEvent.MESSAGE_EVENT_USB_VIDEO:
             case MessageEvent.MESSAGE_EVENT_SD_VIDEO:
-                MMLog.d(TAG, eventCourierInterface.toStr());
+            case MessageEvent.MESSAGE_EVENT_LOCAL_AUDIO:
+            case MessageEvent.MESSAGE_EVENT_USB_AUDIO:
+            case MessageEvent.MESSAGE_EVENT_SD_AUDIO:
+            case MessageEvent.MESSAGE_EVENT_MEDIA_LIBRARY:
+            case MessageEvent.MESSAGE_EVENT_OCTOPUS_AIDL_START_REGISTER:
                 updateData(eventCourierInterface.getId());
-
                 break;
         }
         return true;
@@ -150,7 +145,7 @@ public class USBItemFragment extends BaseFragment {
 
     @SuppressLint("NotifyDataSetChanged")
     private void updateData(int dataId) {
-        mVideoList = Cabinet.getPlayManager().getLocalUSBMediaVideos();
+        mVideoList = Cabinet.getPlayManager().getPlayingHistoryList();
         mOMediaItemRecyclerViewAdapter.setData(mVideoList.toOMediaList());
         mOMediaItemRecyclerViewAdapter.notifyDataSetChanged();
         checkIfEmpty();
