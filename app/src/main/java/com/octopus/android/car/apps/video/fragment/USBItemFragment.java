@@ -105,6 +105,7 @@ public class USBItemFragment extends BaseFragment {
         super.onFragmentVisible(isVisible);
         updateData(0);
     }
+
     private void checkIfEmpty() {
         if (mOMediaItemRecyclerViewAdapter.getItemCount() == 0) {
             mRecyclerView.setVisibility(View.GONE);
@@ -113,6 +114,14 @@ public class USBItemFragment extends BaseFragment {
             mRecyclerView.setVisibility(View.VISIBLE);
             mEmptyView.setVisibility(View.GONE);
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void updateData(int dataId) {
+        mVideoList = Cabinet.getPlayManager().getLocalUSBMediaVideos();
+        mOMediaItemRecyclerViewAdapter.setData(mVideoList.toOMediaList());
+        mOMediaItemRecyclerViewAdapter.notifyDataSetChanged();
+        checkIfEmpty();
     }
 
     @TCourierSubscribe(threadMode = MethodThreadMode.threadMode.MAIN)
@@ -131,13 +140,5 @@ public class USBItemFragment extends BaseFragment {
                 break;
         }
         return true;
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private void updateData(int dataId) {
-        mVideoList = Cabinet.getPlayManager().getLocalUSBMediaVideos();
-        mOMediaItemRecyclerViewAdapter.setData(mVideoList.toOMediaList());
-        mOMediaItemRecyclerViewAdapter.notifyDataSetChanged();
-        checkIfEmpty();
     }
 }

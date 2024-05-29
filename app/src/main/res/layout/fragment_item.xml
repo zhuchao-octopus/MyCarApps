@@ -4,77 +4,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/selector_recycler_item"
-    android:clickable="true"
-    android:focusable="true"
     android:paddingHorizontal="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         android:clickable="false"
         android:focusable="false"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/list_item"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/video_item_bg"
             android:clickable="false"
-            android:focusable="false"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:focusable="false">
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="160dp"
+                android:id="@+id/iv_title"
+                android:layout_width="130dp"
                 android:layout_height="90dp"
-                android:clickable="false"
-                android:focusable="false"
+                android:background="@drawable/selector_recycler_item"
+                android:clickable="true"
+                android:focusable="true"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_video"
-                app:layout_constraintBottom_toTopOf="@+id/divider"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="false"
-                android:focusable="false"
-                android:orientation="vertical">
+                android:id="@+id/itemContentView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_recycler_item"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ivStatus"
+                app:layout_constraintStart_toEndOf="@id/iv_title"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/textView_title"
+                    android:id="@+id/tvTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:clickable="false"
                     android:focusable="false"
                     android:maxLines="1"
-                    android:paddingHorizontal="30dp"
                     android:textColor="#ffffff"
                     android:textSize="30sp"
                     tools:text="测试视频文件名称" />
 
                 <TextView
-                    android:id="@+id/textView_subtitle"
+                    android:id="@+id/tvSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:clickable="false"
-                    android:focusable="false"
                     android:ellipsize="marquee"
+                    android:focusable="false"
                     android:maxLines="1"
-                    android:paddingHorizontal="30dp"
                     android:text="@string/textview_default"
                     android:textSize="24sp" />
             </LinearLayout>
-        </LinearLayout>
 
+            <ImageView
+                android:id="@+id/ivStatus"
+                android:layout_width="80dp"
+                android:layout_height="90dp"
+                android:background="@drawable/selector_recycler_item"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingTop="30dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="30dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/music_playing"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlSymmetry" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/divider"
@@ -83,7 +102,6 @@
             android:clickable="false"
             android:focusable="false"
             android:src="@mipmap/video_divider" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

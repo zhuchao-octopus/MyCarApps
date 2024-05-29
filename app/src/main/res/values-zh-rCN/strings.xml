@@ -55,6 +55,6 @@
     <string name="tab_name_sd">SD</string>
     <string name="tab_name_folder">Folder</string>
 
-    <string name="message_no_data">暂无数据</string>
+    <string name="message_no_media_data">没有搜索到媒体信息</string>
     <string name="textview_default">........</string>
 </resources>

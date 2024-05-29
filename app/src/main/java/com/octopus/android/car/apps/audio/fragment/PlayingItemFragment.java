@@ -112,6 +112,14 @@ public class PlayingItemFragment extends BaseFragment {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private void updateData(int dataId) {
+        mVideoList = Cabinet.getPlayManager().getPlayingHistoryList();
+        mOMediaItemRecyclerViewAdapter.setData(mVideoList.toOMediaList());
+        mOMediaItemRecyclerViewAdapter.notifyDataSetChanged();
+        checkIfEmpty();
+    }
+
     @TCourierSubscribe(threadMode = MethodThreadMode.threadMode.MAIN)
     public boolean onTCourierSubscribeEvent(EventCourierInterface eventCourierInterface) {
         switch (eventCourierInterface.getId()) { ///加载外部数据
@@ -127,13 +135,5 @@ public class PlayingItemFragment extends BaseFragment {
                 break;
         }
         return true;
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private void updateData(int dataId) {
-        mVideoList = Cabinet.getPlayManager().getPlayingHistoryList();
-        mOMediaItemRecyclerViewAdapter.setData(mVideoList.toOMediaList());
-        mOMediaItemRecyclerViewAdapter.notifyDataSetChanged();
-        checkIfEmpty();
     }
 }

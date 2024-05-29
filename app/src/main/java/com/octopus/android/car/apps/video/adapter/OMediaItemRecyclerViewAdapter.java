@@ -59,6 +59,15 @@ public class OMediaItemRecyclerViewAdapter extends RecyclerView.Adapter<OMediaIt
                 }
             }
         });
+        holder.mItemContentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAbsoluteAdapterPosition();
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position, mValues.get(position));
+                }
+            }
+        });
     }
 
     @Override
@@ -70,14 +79,16 @@ public class OMediaItemRecyclerViewAdapter extends RecyclerView.Adapter<OMediaIt
         public final ImageView mImageView;
         public final TextView mTitleView;
         public final TextView mSubTitleView;
+        public final View mItemContentView;
         public OMedia mItem;
 
         public ViewHolder(com.octopus.android.car.apps.databinding.FragmentItemBinding binding) {
             super(binding.getRoot());
             ///mIdView = binding.itemNumber;
-            mImageView = binding.imageView;
-            mTitleView = binding.textViewTitle;
-            mSubTitleView = binding.textViewSubtitle;
+            mImageView = binding.ivTitle;
+            mTitleView = binding.tvTitle;
+            mSubTitleView = binding.tvSubtitle;
+            mItemContentView = binding.itemContentView;
         }
 
         public OMedia getItem() {

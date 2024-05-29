@@ -50,22 +50,22 @@ public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderIt
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         ///holder.mIdView.setText(mValues.get(position).id);
-        if (holder.mItem.getSubItemCount() > 0) holder.mTitleView.setText(holder.mItem.getName() + " (" + holder.mItem.getSubItemCount() + ")");
-        else holder.mTitleView.setText(holder.mItem.getName());
-        holder.mSubTitleView.setText(holder.mItem.getPathName());
+        if (holder.mItem.getSubItemCount() > 0) holder.mTextViewTitle.setText(holder.mItem.getName() + " (" + holder.mItem.getSubItemCount() + ")");
+        else holder.mTextViewTitle.setText(holder.mItem.getName());
+        holder.mTextViewSubTitle.setText(holder.mItem.getPathName());
 
         if (holder.mItem.isFileBean()) {
             if (MediaFile.isVideoFile(holder.mItem.getPathName())) {
                 ///Context context = holder.itemView.getContext();
                 Bitmap bitmap = holder.mItem.getVideoFileFrame();
                 if (bitmap != null) {
-                    holder.mImageView.setImageBitmap(bitmap);
-                    holder.mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                } else holder.mImageView.setImageResource(R.mipmap.ic_video);
-            } else if (MediaFile.isAudioFile(holder.mItem.getPathName())) holder.mImageView.setImageResource(R.mipmap.music_list);
-            else holder.mImageView.setImageResource(R.mipmap.ic_launcher);
+                    holder.mImageViewTitle.setImageBitmap(bitmap);
+                    holder.mImageViewTitle.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                } else holder.mImageViewTitle.setImageResource(R.mipmap.ic_video);
+            } else if (MediaFile.isAudioFile(holder.mItem.getPathName())) holder.mImageViewTitle.setImageResource(R.mipmap.music_list);
+            else holder.mImageViewTitle.setImageResource(R.mipmap.ic_launcher);
         } else {
-            holder.mImageView.setImageResource(R.mipmap.folder);
+            holder.mImageViewTitle.setImageResource(R.mipmap.folder);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -89,29 +89,25 @@ public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderIt
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final ImageView mImageView;
-        public final TextView mTitleView;
-        public final TextView mSubTitleView;
+        public final ImageView mImageViewTitle;
+        public final TextView mTextViewTitle;
+        public final TextView mTextViewSubTitle;
+        public final ImageView mImageViewStatus;
         public FolderBean mItem;
 
         public ViewHolder(FragmentItemBinding binding) {
             super(binding.getRoot());
-            ///mIdView = binding.itemNumber;
-            mImageView = binding.imageView;
-            mTitleView = binding.textViewTitle;
-            mSubTitleView = binding.textViewSubtitle;
-            mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            mImageViewTitle = binding.ivTitle;
+            mTextViewTitle = binding.tvTitle;
+            mTextViewSubTitle = binding.tvSubtitle;
+            mImageViewStatus = binding.ivStatus;
+            mImageViewTitle.setScaleType(ImageView.ScaleType.FIT_CENTER);
         }
 
         public FolderBean getItem() {
             return mItem;
         }
 
-        @NonNull
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mSubTitleView.getText() + "'";
-        }
     }
 
     public interface OnItemClickListener {

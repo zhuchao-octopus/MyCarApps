@@ -1,5 +1,6 @@
 package com.octopus.android.car.apps.audio.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,29 +8,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.octopus.android.car.apps.R;
-import com.octopus.android.car.apps.audio.adapter.OMediaItemRecyclerViewAdapter;
+import com.octopus.android.car.apps.audio.activity.MusicPlayingActivity;
+import com.octopus.android.car.apps.audio.adapter.CommonItemRecyclerViewAdapter;
+import com.zhuchao.android.fbase.MMLog;
+import com.zhuchao.android.fbase.MessageEvent;
+import com.zhuchao.android.fbase.MethodThreadMode;
+import com.zhuchao.android.fbase.TCourierSubscribe;
+import com.zhuchao.android.fbase.bean.MediaMetadata;
+import com.zhuchao.android.fbase.eventinterface.EventCourierInterface;
 import com.zhuchao.android.session.Cabinet;
+import com.zhuchao.android.session.TMediaMetadataManager;
 import com.zhuchao.android.session.base.BaseFragment;
+import com.zhuchao.android.video.OMedia;
 import com.zhuchao.android.video.VideoList;
 
 /**
  * A fragment representing a list of Items.
  */
-public class AlbumsItemFragment extends BaseFragment {
-
-    // TODO: Customize parameter argument names
+public class AlbumsItemFragment extends BaseFragment implements CommonItemRecyclerViewAdapter.OnItemClickListener<Object>, CommonItemRecyclerViewAdapter.OnBindViewHolderListener<Object> {
+    private static final String TAG = "AlbumsItemFragment";
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
+    public static final String ALBUM_TAG = "media.album.tag.";
+    public static final String ARTIST_TAG = "media.artist.tag.";
     private int mColumnCount = 1;
-    private OMediaItemRecyclerViewAdapter mOMediaItemRecyclerViewAdapter;
+    private CommonItemRecyclerViewAdapter<Object> mCommonItemRecyclerViewAdapter;
     private RecyclerView mRecyclerView;
     private TextView mEmptyView;
-    private VideoList mVideoList = Cabinet.getPlayManager().getPlayingHistoryList();
+    private final TMediaMetadataManager tTMediaMetadataManager = Cabinet.getPlayManager().getMediaMetadataManager();
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -67,8 +79,92 @@ public class AlbumsItemFragment extends BaseFragment {
         } else {
             mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
-        mOMediaItemRecyclerViewAdapter = new OMediaItemRecyclerViewAdapter(mVideoList.toOMediaList());
-        mRecyclerView.setAdapter(mOMediaItemRecyclerViewAdapter);
         return view;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mCommonItemRecyclerViewAdapter = new CommonItemRecyclerViewAdapter<>();
+        mCommonItemRecyclerViewAdapter.setOnItemClickListener(this);
+        mCommonItemRecyclerViewAdapter.setOnBindViewHolderListener(this);
+        mCommonItemRecyclerViewAdapter.setData(tTMediaMetadataManager.getTAlbums());
+        mRecyclerView.setAdapter(mCommonItemRecyclerViewAdapter);
+        checkIfEmpty();
+    }
+
+    @Override
+    public void onItemClick(CommonItemRecyclerViewAdapter.ViewHolder<Object> holder, View v, int position, Object obj) {
+        if (obj instanceof MediaMetadata && holder.mItemContentView.equals(v)) {
+            MMLog.d(TAG, ((MediaMetadata) obj).toString());
+            updateData(obj);
+        } else if (obj instanceof OMedia && holder.mItemContentView.equals(v)) {
+            MMLog.d(TAG, ((OMedia) obj).getMovie().toString());
+            Cabinet.getPlayManager().setMediaToPlay(((OMedia) obj));
+            openLocalActivity(MusicPlayingActivity.class);
+        } else if (holder.mImageViewTitle.equals(v)) {
+            ///MMLog.d(TAG, ((MediaMetadata) obj).toString());
+            updateData(obj);
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onBindViewHolder(CommonItemRecyclerViewAdapter.ViewHolder<Object> holder, Object item, int position) {
+        if (item instanceof MediaMetadata) {
+            ///holder.mImageViewTitle.setImageBitmap(AudioMetaFile.);
+            holder.mTextViewTitle.setText(((MediaMetadata) item).getAlbum() + " (" + ((MediaMetadata) item).getCount() + ")");
+            holder.mTextViewSubTitle.setText(((MediaMetadata) holder.mItem).getDescription());
+            if (((MediaMetadata) item).getBitmap() != null)
+                holder.mImageViewTitle.setImageBitmap(((MediaMetadata) item).getBitmap());
+            else
+                holder.mImageViewTitle.setImageResource(R.mipmap.ic_albums);
+        }
+        else if (item instanceof OMedia) {
+            holder.mTextViewTitle.setText(((OMedia) item).getName());
+            holder.mTextViewSubTitle.setText(((OMedia) item).getPathName());
+            holder.mImageViewTitle.setImageResource(R.mipmap.ic_music);
+        }
+    }
+
+    private void checkIfEmpty() {
+        if (mCommonItemRecyclerViewAdapter.getItemCount() == 0) {
+            mRecyclerView.setVisibility(View.GONE);
+            mEmptyView.setVisibility(View.VISIBLE);
+        } else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mEmptyView.setVisibility(View.GONE);
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void updateData(Object obj) {
+        if (obj instanceof MediaMetadata) {
+            // = Cabinet.getPlayManager().getAllMusic();
+            VideoList mVideoList = Cabinet.getPlayManager().getAllMusic();
+            mCommonItemRecyclerViewAdapter.setDataAndNotify(mVideoList.toListByAlbum(((MediaMetadata) obj).getAlbum()));
+        } else {
+            mCommonItemRecyclerViewAdapter.setData(tTMediaMetadataManager.getTAlbums());
+            mCommonItemRecyclerViewAdapter.notifyDataSetChanged();
+            checkIfEmpty();
+        }
+    }
+
+    @TCourierSubscribe(threadMode = MethodThreadMode.threadMode.MAIN)
+    public boolean onTCourierSubscribeEvent(EventCourierInterface eventCourierInterface) {
+        switch (eventCourierInterface.getId()) { ///加载外部数据
+            case MessageEvent.MESSAGE_EVENT_LOCAL_VIDEO:
+            case MessageEvent.MESSAGE_EVENT_USB_VIDEO:
+            case MessageEvent.MESSAGE_EVENT_SD_VIDEO:
+            case MessageEvent.MESSAGE_EVENT_LOCAL_AUDIO:
+            case MessageEvent.MESSAGE_EVENT_USB_AUDIO:
+            case MessageEvent.MESSAGE_EVENT_SD_AUDIO:
+            case MessageEvent.MESSAGE_EVENT_MEDIA_LIBRARY:
+            case MessageEvent.MESSAGE_EVENT_OCTOPUS_AIDL_START_REGISTER:
+                updateData(eventCourierInterface.getId());
+                break;
+        }
+        return true;
+    }
+
 }

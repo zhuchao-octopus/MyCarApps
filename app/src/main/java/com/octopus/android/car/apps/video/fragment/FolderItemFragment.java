@@ -18,10 +18,15 @@ import com.octopus.android.car.apps.video.activity.VideoPlayingActivity;
 import com.octopus.android.car.apps.video.adapter.FolderItemRecyclerViewAdapter;
 import com.zhuchao.android.fbase.DataID;
 import com.zhuchao.android.fbase.FileUtils;
+import com.zhuchao.android.fbase.MMLog;
+import com.zhuchao.android.fbase.MessageEvent;
+import com.zhuchao.android.fbase.MethodThreadMode;
 import com.zhuchao.android.fbase.ObjectList;
+import com.zhuchao.android.fbase.TCourierSubscribe;
 import com.zhuchao.android.fbase.TTask;
 import com.zhuchao.android.fbase.ThreadUtils;
 import com.zhuchao.android.fbase.bean.FolderBean;
+import com.zhuchao.android.fbase.eventinterface.EventCourierInterface;
 import com.zhuchao.android.session.Cabinet;
 import com.zhuchao.android.session.base.BaseFragment;
 import com.zhuchao.android.video.OMedia;
@@ -38,10 +43,10 @@ public class FolderItemFragment extends BaseFragment {
     private int mColumnCount = 1;
     private FolderItemRecyclerViewAdapter mFolderItemRecyclerViewAdapter;
     private RecyclerView mRecyclerView;
-    private TextView emptyView;
+    private TextView mEmptyView;
     private ObjectList mFolderList = new ObjectList();
     private VideoList mVideoList;
-    private final TTask tTask = new TTask("Scanning.folder");
+    private final TTask tTask = new TTask("Scanning.folder.video");
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -75,10 +80,8 @@ public class FolderItemFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-        emptyView = view.findViewById(R.id.empty_view);
+        mEmptyView = view.findViewById(R.id.empty_view);
         mRecyclerView = view.findViewById(R.id.recycler_view);
-        // Set the adapter
-
         Context context = view.getContext();
         if (mColumnCount <= 1) {
             mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -124,10 +127,10 @@ public class FolderItemFragment extends BaseFragment {
     private void checkIfEmpty() {
         if (mFolderItemRecyclerViewAdapter.getItemCount() == 0) {
             mRecyclerView.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
+            mEmptyView.setVisibility(View.VISIBLE);
         } else {
             mRecyclerView.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.GONE);
+            mEmptyView.setVisibility(View.GONE);
         }
     }
 
@@ -148,5 +151,21 @@ public class FolderItemFragment extends BaseFragment {
 
     private void onEventTaskFinished(Object obj, int status) {
         ThreadUtils.runOnMainUiThread(() -> updateData(null));
+    }
+
+    @TCourierSubscribe(threadMode = MethodThreadMode.threadMode.MAIN)
+    public boolean onTCourierSubscribeEvent(EventCourierInterface eventCourierInterface) {
+        switch (eventCourierInterface.getId()) { ///加载外部数据
+            case MessageEvent.MESSAGE_EVENT_USB_UNMOUNT:
+            case MessageEvent.MESSAGE_EVENT_USB_MOUNTED:
+                MMLog.d(TAG, eventCourierInterface.toStr());
+                tTask.startAgain();
+                break;
+            case MessageEvent.MESSAGE_EVENT_LOCAL_VIDEO:
+            case MessageEvent.MESSAGE_EVENT_USB_VIDEO:
+            case MessageEvent.MESSAGE_EVENT_SD_VIDEO:
+                break;
+        }
+        return true;
     }
 }

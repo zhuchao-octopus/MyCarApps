@@ -63,15 +63,12 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
         @SuppressLint("InlinedApi")
         @Override
         public void run() {
-            // Delayed removal of status and navigation bar
-            if (Build.VERSION.SDK_INT >= 30) {
-                Objects.requireNonNull(mContentView.getWindowInsetsController()).hide(WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars());
-            } else {
-                // Note that some of these constants are new as of API 16 (Jelly Bean)
-                // and API 19 (KitKat). It is safe to use them, as they are inlined
-                // at compile-time and do nothing on earlier devices.
-                mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+            // Hide UI first
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.hide();
             }
+            mControlsView.setVisibility(View.GONE);
         }
     };
 
@@ -84,13 +81,6 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
                 actionBar.show();
             }
             mControlsView.setVisibility(View.VISIBLE);
-        }
-    };
-
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
         }
     };
 
@@ -253,14 +243,16 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
     }
 
     private void hide() {
-        // Hide UI first
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
+        // Delayed removal of status and navigation bar
+        if (Build.VERSION.SDK_INT >= 30) {
+            Objects.requireNonNull(mContentView.getWindowInsetsController()).hide(WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars());
+        } else {
+            // Note that some of these constants are new as of API 16 (Jelly Bean)
+            // and API 19 (KitKat). It is safe to use them, as they are inlined
+            // at compile-time and do nothing on earlier devices.
+            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
-        mControlsView.setVisibility(View.GONE);
         mVisible = false;
-
         // Schedule a runnable to remove the status and navigation bar after a delay
         mHideHandler.removeCallbacks(mShowPart2Runnable);
         mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
@@ -275,6 +267,7 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
         }
         mVisible = true;
         // Schedule a runnable to display UI elements after a delay
+        mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.removeCallbacks(mHidePart2Runnable);
         mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
     }
@@ -283,6 +276,13 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
      * Schedules a call to hide() in delay milliseconds, canceling any
      * previously scheduled calls.
      */
+    private final Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            hide();
+        }
+    };
+
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);

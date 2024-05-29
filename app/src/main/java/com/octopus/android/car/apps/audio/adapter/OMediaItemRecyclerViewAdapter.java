@@ -44,8 +44,8 @@ public class OMediaItemRecyclerViewAdapter extends RecyclerView.Adapter<OMediaIt
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         ///holder.mIdView.setText(mValues.get(position).id);
-        holder.mTitleView.setText(mValues.get(position).getName());
-        holder.mSubTitleView.setText(mValues.get(position).getPathName());
+        holder.mTextViewTitle.setText(mValues.get(position).getName());
+        holder.mTextViewSubTitle.setText(mValues.get(position).getPathName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,28 +67,25 @@ public class OMediaItemRecyclerViewAdapter extends RecyclerView.Adapter<OMediaIt
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final ImageView mImageView;
-        public final TextView mTitleView;
-        public final TextView mSubTitleView;
+        public final ImageView mImageViewTitle;
+        public final TextView mTextViewTitle;
+        public final TextView mTextViewSubTitle;
+        public final ImageView mImageViewStatus;
         public OMedia mItem;
 
         public ViewHolder(com.octopus.android.car.apps.databinding.FragmentItemBinding binding) {
             super(binding.getRoot());
             ///mIdView = binding.itemNumber;
-            mImageView = binding.imageView;
-            mTitleView = binding.textViewTitle;
-            mSubTitleView = binding.textViewSubtitle;
+            mImageViewTitle = binding.ivTitle;
+            mTextViewTitle = binding.tvTitle;
+            mTextViewSubTitle = binding.tvSubtitle;
+            mImageViewStatus = binding.ivStatus;
         }
 
         public OMedia getItem() {
             return mItem;
         }
 
-        @NonNull
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mSubTitleView.getText() + "'";
-        }
     }
 
     public interface OnItemClickListener {

@@ -58,16 +58,40 @@ public class MainMusicActivity extends BaseActivity implements View.OnClickListe
         binding.ivFolder.setOnClickListener(this);
         binding.ivCollection.setOnClickListener(this);
         binding.ivEq.setOnClickListener(this);
+
+        binding.tvPlayList.setOnClickListener(this);
+        binding.tvArtists.setOnClickListener(this);
+        binding.tvAlbums.setOnClickListener(this);
+        binding.tvFolder.setOnClickListener(this);
+        binding.tvCollection.setOnClickListener(this);
+
         binding.ivPlayList.callOnClick();
 
-        List<BaseFragment> fragmentList = Arrays.asList(mPlayingItemFragment, mAlbumsItemFragment, mArtistsItemFragment, mCollectionItemFragment, mFolderItemFragment);
+        List<BaseFragment> fragmentList = Arrays.asList(mPlayingItemFragment, mArtistsItemFragment, mAlbumsItemFragment, mFolderItemFragment, mCollectionItemFragment);
         fragmentAdapter = new MyFragmentAdapter(this, fragmentList);
         viewPager.setAdapter(fragmentAdapter);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                // Handle page selection
+                switch (position)// Handle page selection
+                {
+                    case 0:
+                        updateBottomTab(binding.ivPlayList);
+                        break;
+                    case 1:
+                        updateBottomTab(binding.ivArtists);
+                        break;
+                    case 2:
+                        updateBottomTab(binding.ivAlbums);
+                        break;
+                    case 3:
+                        updateBottomTab(binding.ivFolder);
+                        break;
+                    case 4:
+                        updateBottomTab(binding.ivCollection);
+                        break;
+                }
             }
         });
     }
@@ -93,29 +117,49 @@ public class MainMusicActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         unSelectAllTabView();
-        if (v.getId() == R.id.ivPlayList) {
+        if (v.getId() == R.id.ivPlayList || v.getId() == R.id.tvPlayList) {
             ///replaceFragment(R.id.fragment_container, mPlayingItemFragment);
             viewPager.setCurrentItem(0);
             v.setSelected(true);
             setColor(binding.tvPlayList, R.color.colorAccent);
-        } else if (v.getId() == R.id.ivArtists) {
+        } else if (v.getId() == R.id.ivArtists || v.getId() == R.id.tvArtists) {
             ///replaceFragment(R.id.fragment_container, mArtistsItemFragment);
             viewPager.setCurrentItem(1);
             v.setSelected(true);
             setColor(binding.tvArtists, R.color.colorAccent);
-        } else if (v.getId() == R.id.ivAlbums) {
+        } else if (v.getId() == R.id.ivAlbums || v.getId() == R.id.tvAlbums) {
             ///replaceFragment(R.id.fragment_container, mAlbumsItemFragment);
             viewPager.setCurrentItem(2);
             v.setSelected(true);
             setColor(binding.tvAlbums, R.color.colorAccent);
-        } else if (v.getId() == R.id.viewFolder) {
+        } else if (v.getId() == R.id.ivFolder || v.getId() == R.id.tvFolder) {
             ///replaceFragment(R.id.fragment_container, mFolderItemFragment);
             viewPager.setCurrentItem(3);
             v.setSelected(true);
             setColor(binding.tvFolder, R.color.colorAccent);
-        } else if (v.getId() == R.id.ivCollection) {
+        } else if (v.getId() == R.id.ivCollection || v.getId() == R.id.tvCollection) {
             ///replaceFragment(R.id.fragment_container, mCollectionItemFragment);
             viewPager.setCurrentItem(4);
+            v.setSelected(true);
+            setColor(binding.tvCollection, R.color.colorAccent);
+        }
+    }
+
+    private void updateBottomTab(View v) {
+        unSelectAllTabView();
+        if (v.getId() == R.id.ivPlayList) {
+            v.setSelected(true);
+            setColor(binding.tvPlayList, R.color.colorAccent);
+        } else if (v.getId() == R.id.ivArtists) {
+            v.setSelected(true);
+            setColor(binding.tvArtists, R.color.colorAccent);
+        } else if (v.getId() == R.id.ivAlbums) {
+            v.setSelected(true);
+            setColor(binding.tvAlbums, R.color.colorAccent);
+        } else if (v.getId() == R.id.ivFolder) {
+            v.setSelected(true);
+            setColor(binding.tvFolder, R.color.colorAccent);
+        } else if (v.getId() == R.id.ivCollection) {
             v.setSelected(true);
             setColor(binding.tvCollection, R.color.colorAccent);
         }

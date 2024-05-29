@@ -81,6 +81,15 @@ public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderIt
                 }
             }
         });
+        holder.mItemContentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAbsoluteAdapterPosition();
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position, mValues.get(position));
+                }
+            }
+        });
     }
 
     @Override
@@ -92,14 +101,16 @@ public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderIt
         public final ImageView mImageView;
         public final TextView mTitleView;
         public final TextView mSubTitleView;
+        public final View mItemContentView;
         public FolderBean mItem;
 
         public ViewHolder(FragmentItemBinding binding) {
             super(binding.getRoot());
             ///mIdView = binding.itemNumber;
-            mImageView = binding.imageView;
-            mTitleView = binding.textViewTitle;
-            mSubTitleView = binding.textViewSubtitle;
+            mImageView = binding.ivTitle;
+            mTitleView = binding.tvTitle;
+            mSubTitleView = binding.tvSubtitle;
+            mItemContentView = binding.itemContentView;
             mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         }
 
