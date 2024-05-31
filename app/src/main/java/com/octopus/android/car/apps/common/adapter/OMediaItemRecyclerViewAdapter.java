@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class OMediaItemRecyclerViewAdapter extends RecyclerView.Adapter<OMediaItemRecyclerViewAdapter.ViewHolder> {
 
-    private List<OMedia> mValues;
+    private List<OMedia> mItemList;
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -27,11 +27,11 @@ public class OMediaItemRecyclerViewAdapter extends RecyclerView.Adapter<OMediaIt
     }
 
     public OMediaItemRecyclerViewAdapter(List<OMedia> items) {
-        mValues = items;
+        mItemList = items;
     }
 
     public void setData(List<OMedia> items) {
-        mValues = items;
+        mItemList = items;
     }
 
     @NonNull
@@ -42,20 +42,45 @@ public class OMediaItemRecyclerViewAdapter extends RecyclerView.Adapter<OMediaIt
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
+        holder.mItem = mItemList.get(position);
         ///holder.mIdView.setText(mValues.get(position).id);
-        holder.mTextViewTitle.setText(mValues.get(position).getName());
-        holder.mTextViewSubTitle.setText(mValues.get(position).getPathName());
+        holder.mTextViewTitle.setText(mItemList.get(position).getName());
+        holder.mTextViewSubTitle.setText(mItemList.get(position).getPathName());
+        holder.mImageViewTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAbsoluteAdapterPosition();
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position, mItemList.get(position));
+                }
+            }
+        });
+        holder.mImageViewStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAbsoluteAdapterPosition();
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position, mItemList.get(position));
+                }
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle item click
                 int position = holder.getAbsoluteAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    // Perform action with the clicked item
                     if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(position, mValues.get(position));
+                        onItemClickListener.onItemClick(position, mItemList.get(position));
                     }
+                }
+            }
+        });
+        holder.mItemContentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAbsoluteAdapterPosition();
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position, mItemList.get(position));
                 }
             }
         });
@@ -63,7 +88,7 @@ public class OMediaItemRecyclerViewAdapter extends RecyclerView.Adapter<OMediaIt
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mItemList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -71,6 +96,7 @@ public class OMediaItemRecyclerViewAdapter extends RecyclerView.Adapter<OMediaIt
         public final TextView mTextViewTitle;
         public final TextView mTextViewSubTitle;
         public final ImageView mImageViewStatus;
+        public final View mItemContentView;
         public OMedia mItem;
 
         public ViewHolder(com.octopus.android.car.apps.databinding.FragmentItemBinding binding) {
@@ -80,6 +106,7 @@ public class OMediaItemRecyclerViewAdapter extends RecyclerView.Adapter<OMediaIt
             mTextViewTitle = binding.tvTitle;
             mTextViewSubTitle = binding.tvSubtitle;
             mImageViewStatus = binding.ivStatus;
+            mItemContentView = binding.itemContentView;
         }
 
         public OMedia getItem() {

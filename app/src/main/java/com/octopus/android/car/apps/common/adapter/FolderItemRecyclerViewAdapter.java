@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderItemRecyclerViewAdapter.ViewHolder> {
 
-    private List<FolderBean> mValues;
+    private List<FolderBean> mItemList;
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -32,11 +32,11 @@ public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderIt
     }
 
     public FolderItemRecyclerViewAdapter(List<FolderBean> items) {
-        mValues = items;
+        mItemList = items;
     }
 
     public void setData(List<FolderBean> items) {
-        mValues = items;
+        mItemList = items;
     }
 
     @NonNull
@@ -48,7 +48,7 @@ public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderIt
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
+        holder.mItem = mItemList.get(position);
         ///holder.mIdView.setText(mValues.get(position).id);
         if (holder.mItem.getSubItemCount() > 0) holder.mTextViewTitle.setText(holder.mItem.getName() + " (" + holder.mItem.getSubItemCount() + ")");
         else holder.mTextViewTitle.setText(holder.mItem.getName());
@@ -68,14 +68,41 @@ public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderIt
             holder.mImageViewTitle.setImageResource(R.mipmap.folder);
         }
 
+        holder.mImageViewTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAbsoluteAdapterPosition();
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position, mItemList.get(position));
+                }
+            }
+        });
+        holder.mImageViewStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAbsoluteAdapterPosition();
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position, mItemList.get(position));
+                }
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = holder.getAbsoluteAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(position, mValues.get(position));
+                        onItemClickListener.onItemClick(position, mItemList.get(position));
                     }
+                }
+            }
+        });
+        holder.mItemContentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAbsoluteAdapterPosition();
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(position, mItemList.get(position));
                 }
             }
         });
@@ -83,7 +110,7 @@ public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderIt
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mItemList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -91,6 +118,7 @@ public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderIt
         public final TextView mTextViewTitle;
         public final TextView mTextViewSubTitle;
         public final ImageView mImageViewStatus;
+        public final View mItemContentView;
         public FolderBean mItem;
 
         public ViewHolder(FragmentItemBinding binding) {
@@ -99,6 +127,7 @@ public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderIt
             mTextViewTitle = binding.tvTitle;
             mTextViewSubTitle = binding.tvSubtitle;
             mImageViewStatus = binding.ivStatus;
+            mItemContentView = binding.itemContentView;
             mImageViewTitle.setScaleType(ImageView.ScaleType.FIT_CENTER);
         }
 
