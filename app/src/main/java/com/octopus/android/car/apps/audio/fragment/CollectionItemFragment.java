@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.audio.activity.MusicPlayingActivity;
-import com.octopus.android.car.apps.audio.adapter.OMediaItemRecyclerViewAdapter;
+import com.octopus.android.car.apps.common.adapter.OMediaItemRecyclerViewAdapter;
 import com.zhuchao.android.fbase.MessageEvent;
 import com.zhuchao.android.fbase.MethodThreadMode;
 import com.zhuchao.android.fbase.TCourierSubscribe;
@@ -88,6 +88,7 @@ public class CollectionItemFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, OMedia oMedia) {
                 if (oMedia != null) {
+                    Cabinet.getPlayManager().createPlayingListOrder(mVideoList);
                     Cabinet.getPlayManager().setMediaToPlay(oMedia);
                     openLocalActivity(MusicPlayingActivity.class);
                 }

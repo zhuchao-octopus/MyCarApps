@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.audio.activity.MusicPlayingActivity;
-import com.octopus.android.car.apps.audio.adapter.CommonItemRecyclerViewAdapter;
+import com.octopus.android.car.apps.common.adapter.CommonItemRecyclerViewAdapter;
 import com.zhuchao.android.fbase.MMLog;
 import com.zhuchao.android.fbase.MessageEvent;
 import com.zhuchao.android.fbase.MethodThreadMode;
@@ -41,7 +41,7 @@ public class AlbumsItemFragment extends BaseFragment implements CommonItemRecycl
     private RecyclerView mRecyclerView;
     private TextView mEmptyView;
     private final TMediaMetadataManager tTMediaMetadataManager = Cabinet.getPlayManager().getMediaMetadataManager();
-
+    private VideoList mVideoList;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -100,6 +100,7 @@ public class AlbumsItemFragment extends BaseFragment implements CommonItemRecycl
             updateData(obj);
         } else if (obj instanceof OMedia && holder.mItemContentView.equals(v)) {
             MMLog.d(TAG, ((OMedia) obj).getMovie().toString());
+            ///Cabinet.getPlayManager().createPlayingListOrder(mVideoList);
             Cabinet.getPlayManager().setMediaToPlay(((OMedia) obj));
             openLocalActivity(MusicPlayingActivity.class);
         } else if (holder.mImageViewTitle.equals(v)) {
@@ -141,8 +142,9 @@ public class AlbumsItemFragment extends BaseFragment implements CommonItemRecycl
     private void updateData(Object obj) {
         if (obj instanceof MediaMetadata) {
             // = Cabinet.getPlayManager().getAllMusic();
-            VideoList mVideoList = Cabinet.getPlayManager().getAllMusic();
-            mCommonItemRecyclerViewAdapter.setDataAndNotify(mVideoList.toListByAlbum(((MediaMetadata) obj).getAlbum()));
+            VideoList videoList = Cabinet.getPlayManager().getAllMusic();
+            mVideoList = videoList.getMusicByAlbum(((MediaMetadata) obj).getAlbum());
+            mCommonItemRecyclerViewAdapter.setDataAndNotify(mVideoList.toList());
         } else {
             mCommonItemRecyclerViewAdapter.setData(tTMediaMetadataManager.getTAlbums());
             mCommonItemRecyclerViewAdapter.notifyDataSetChanged();

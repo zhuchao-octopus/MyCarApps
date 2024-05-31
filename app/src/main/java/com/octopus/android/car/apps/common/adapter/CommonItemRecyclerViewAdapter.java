@@ -1,4 +1,4 @@
-package com.octopus.android.car.apps.audio.adapter;
+package com.octopus.android.car.apps.common.adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.octopus.android.car.apps.audio.adapter;
+package com.octopus.android.car.apps.common.adapter;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -71,10 +71,8 @@ public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderIt
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle item click
                 int position = holder.getAbsoluteAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    // Perform action with the clicked item
                     if (onItemClickListener != null) {
                         onItemClickListener.onItemClick(position, mValues.get(position));
                     }

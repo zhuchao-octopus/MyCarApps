@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.video.activity.VideoPlayingActivity;
-import com.octopus.android.car.apps.video.adapter.FolderItemRecyclerViewAdapter;
+import com.octopus.android.car.apps.common.adapter.FolderItemRecyclerViewAdapter;
 import com.zhuchao.android.fbase.DataID;
 import com.zhuchao.android.fbase.FileUtils;
 import com.zhuchao.android.fbase.MMLog;

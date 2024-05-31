@@ -99,6 +99,12 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
     }
 
     @Override
+    protected void onDestroy() {
+        Cabinet.getPlayManager().stopPlay();
+        super.onDestroy();
+    }
+
+    @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
     }
@@ -116,11 +122,11 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
 
     @Override
     public void onEventPlayerStatus(PlayerStatusInfo playerStatusInfo) {
+        ///MMLog.d(TAG,playerStatusInfo.toString());
         mProgressSeekBar.setMax((int) playerStatusInfo.getLength());
         mProgressSeekBar.setProgress((int) playerStatusInfo.getTimeChanged());
         mTextViewCurrentTime.setText(convertMillisToTime(playerStatusInfo.getTimeChanged()));
         mTextViewTotalTime.setText(convertMillisToTime(playerStatusInfo.getLength()));
-
         switch (playerStatusInfo.getEventType()) {
             case PlaybackEvent.Status_Opening:
                 binding.tvMusicName.setText(oMedia.getMovie().getTitle());
@@ -139,6 +145,7 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
                 break;
             case PlaybackEvent.Status_Paused:
                 mImageViewPlayPause.setImageResource(R.drawable.selector_play);
+                break;
             default:
                 break;
         }

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.video.activity.VideoPlayingActivity;
-import com.octopus.android.car.apps.video.adapter.OMediaItemRecyclerViewAdapter;
+import com.octopus.android.car.apps.common.adapter.OMediaItemRecyclerViewAdapter;
 import com.zhuchao.android.fbase.MessageEvent;
 import com.zhuchao.android.fbase.MethodThreadMode;
 import com.zhuchao.android.fbase.TCourierSubscribe;

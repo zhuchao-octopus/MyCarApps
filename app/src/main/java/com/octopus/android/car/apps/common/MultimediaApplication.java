@@ -1,4 +1,4 @@
-package com.octopus.android.car.apps;
+package com.octopus.android.car.apps.common;
 
 import androidx.appcompat.app.AppCompatDelegate;
 

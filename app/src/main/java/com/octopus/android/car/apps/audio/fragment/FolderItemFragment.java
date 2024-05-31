@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.audio.activity.MusicPlayingActivity;
-import com.octopus.android.car.apps.video.adapter.FolderItemRecyclerViewAdapter;
+import com.octopus.android.car.apps.common.adapter.FolderItemRecyclerViewAdapter;
 import com.zhuchao.android.fbase.DataID;
 import com.zhuchao.android.fbase.FileUtils;
 import com.zhuchao.android.fbase.MMLog;
@@ -107,6 +107,7 @@ public class FolderItemFragment extends BaseFragment {
                         mVideoList.loadFromStringList(folderBean.getParent().getFileList());
                         Cabinet.getPlayManager().addOnePlayList(mVideoList);
                         OMedia oMedia = mVideoList.findByPath(folderBean.getPathName());/// Cabinet.getPlayManager().getOMediaFromPlayLists(folderBean.getPathName());
+                        Cabinet.getPlayManager().createPlayingListOrder(mVideoList);
                         Cabinet.getPlayManager().setMediaToPlay(oMedia);
                         openLocalActivity(MusicPlayingActivity.class);
                     }
