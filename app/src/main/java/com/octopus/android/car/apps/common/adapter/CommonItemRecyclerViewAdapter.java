@@ -67,7 +67,7 @@ public class CommonItemRecyclerViewAdapter<T> extends RecyclerView.Adapter<Commo
             @Override
             public void onClick(View v) {
                 int position = holder.getAbsoluteAdapterPosition();
-                if (onItemClickListener != null) {
+                if (onItemClickListener != null && position != RecyclerView.NO_POSITION) {
                     onItemClickListener.onItemClick(holder, v, position, mItemList.get(position));
                 }
             }
@@ -76,7 +76,7 @@ public class CommonItemRecyclerViewAdapter<T> extends RecyclerView.Adapter<Commo
             @Override
             public void onClick(View v) {
                 int position = holder.getAbsoluteAdapterPosition();
-                if (onItemClickListener != null) {
+                if (onItemClickListener != null && position != RecyclerView.NO_POSITION) {
                     onItemClickListener.onItemClick(holder, v, position, mItemList.get(position));
                 }
             }
@@ -85,10 +85,8 @@ public class CommonItemRecyclerViewAdapter<T> extends RecyclerView.Adapter<Commo
             @Override
             public void onClick(View v) {
                 int position = holder.getAbsoluteAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(holder, v, position, mItemList.get(position));
-                    }
+                if (onItemClickListener != null && position != RecyclerView.NO_POSITION) {
+                    onItemClickListener.onItemClick(holder, v, position, mItemList.get(position));
                 }
             }
         });
@@ -96,7 +94,7 @@ public class CommonItemRecyclerViewAdapter<T> extends RecyclerView.Adapter<Commo
             @Override
             public void onClick(View v) {
                 int position = holder.getAbsoluteAdapterPosition();
-                if (onItemClickListener != null) {
+                if (onItemClickListener != null && position != RecyclerView.NO_POSITION) {
                     onItemClickListener.onItemClick(holder, v, position, mItemList.get(position));
                 }
             }
