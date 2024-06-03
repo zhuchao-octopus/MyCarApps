@@ -37,7 +37,7 @@ public class PlayingItemFragment extends BaseFragment {
     private OMediaItemRecyclerViewAdapter mOMediaItemRecyclerViewAdapter;
     private RecyclerView mRecyclerView;
     private TextView mEmptyView;
-    private VideoList mVideoList = Cabinet.getPlayManager().getPlayingHistoryList();
+    private VideoList mVideoList = Cabinet.getPlayManager().getPlayingHistoryList().getVideo();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -134,7 +134,7 @@ public class PlayingItemFragment extends BaseFragment {
 
     @SuppressLint("NotifyDataSetChanged")
     private void updateData(int dataId) {
-        mVideoList = Cabinet.getPlayManager().getPlayingHistoryList();
+        mVideoList = Cabinet.getPlayManager().getPlayingHistoryList().getVideo();
         mOMediaItemRecyclerViewAdapter.setData(mVideoList.toOMediaList());
         mOMediaItemRecyclerViewAdapter.notifyDataSetChanged();
         checkIfEmpty();

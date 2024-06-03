@@ -80,15 +80,16 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
+    implementation('com.zhuchao.android:libBaseUtils:2.2@aar')//框架基础类
+    implementation('com.zhuchao.android:libCameraUtils:1.0@aar')//相机控制
     ///implementation('com.zhuchao.android:libDecodeCore:1.6@aar')//音视频解码库
-    implementation('com.zhuchao.android:libFBaseUtils:2.1@aar')//框架基础类
-    implementation('com.zhuchao.android:libGPersistUtils:1.1@aar')//数据存储
-    implementation('com.zhuchao.android:libINetUtils:2.1@aar')//网络访问
-    implementation('com.zhuchao.android:libJOSUtils:1.4:@aar')//平台接口
-    implementation('com.zhuchao.android:libCameraController:1.0@aar')//相机控制
-    implementation('com.zhuchao.android:libOpenComputerVision:1.0@aar')//计算机视觉
+    implementation('com.zhuchao.android:libDNetUtils:2.1@aar')//网络接口
+    implementation('com.zhuchao.android:libFOSUtils:1.4@aar')//平台接口
+    implementation('com.zhuchao.android:libFPersistUtils:1.2:@aar')//数据存储
+    implementation('com.zhuchao.android:libGXMediaUtils:2.0@aar')//媒体管理类
+    implementation('com.zhuchao.android:libGXPlayerUtils:3.0@aar')//播放器
+    implementation('com.zhuchao.android:libOpenComputerVision:1.0@aar')//机器视觉
     implementation('com.zhuchao.android:libOpenDetection:1.0@aar')//人脸检测识别
-    implementation('com.zhuchao.android:libMediaUtils:1.9@aar')//媒体库
-    implementation('com.zhuchao.android:libPlayerUtils:3.0@aar')//播放器
-    implementation('com.zhuchao.android:libSessionUtils:2.9@aar')//杂项
+    implementation('com.zhuchao.android:libOpenLargeModelDeepLearning:1.0@aar')//大模型与深度学习
+    implementation('com.zhuchao.android:libSessionUtils:2.9@aar')//会话管理、杂项
 }

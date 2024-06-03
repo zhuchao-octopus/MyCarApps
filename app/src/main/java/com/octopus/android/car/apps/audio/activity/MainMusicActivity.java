@@ -31,7 +31,6 @@ public class MainMusicActivity extends BaseActivity implements View.OnClickListe
 
     private ActivityMusicMainBinding binding;
     private ViewPager2 viewPager;
-    private MyFragmentAdapter fragmentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +67,7 @@ public class MainMusicActivity extends BaseActivity implements View.OnClickListe
         binding.ivPlayList.callOnClick();
 
         List<BaseFragment> fragmentList = Arrays.asList(mPlayingItemFragment, mArtistsItemFragment, mAlbumsItemFragment, mFolderItemFragment, mCollectionItemFragment);
-        fragmentAdapter = new MyFragmentAdapter(this, fragmentList);
+        MyFragmentAdapter fragmentAdapter = new MyFragmentAdapter(this, fragmentList);
         viewPager.setAdapter(fragmentAdapter);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

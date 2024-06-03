@@ -155,7 +155,7 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
         super.onResume();
         ///MMLog.d(TAG,"onResume()");
         ///Cabinet.getPlayManager().setSurfaceView(binding.fullscreenContentSurfaceView);
-        Cabinet.getPlayManager().restartPlay();
+        Cabinet.getPlayManager().startToPlay();
     }
 
     @Override
@@ -287,7 +287,6 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
-
 
     @Override
     public void onEventPlayerStatus(PlayerStatusInfo playerStatusInfo) {

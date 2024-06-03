@@ -27,7 +27,7 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
     private TextView mTextViewTotalTime;
     private ImageView mImageViewPlayPause;
     private ActivityMusicPlayingBinding binding;
-    private OMedia oMedia;
+    ///private OMedia oMedia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
             }
 
         } else if (v.equals(binding.viewCollection)) {
-            oMedia = Cabinet.getPlayManager().getPlayingMedia();
+            OMedia oMedia = Cabinet.getPlayManager().getPlayingMedia();
             Cabinet.getPlayManager().getFavouriteList().addRow(oMedia);
         } else if (v.equals(binding.viewPlay)) {
             Cabinet.getPlayManager().playPause();
@@ -86,16 +86,20 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
     @Override
     protected void onResume() {
         super.onResume();
-        oMedia = Cabinet.getPlayManager().getPlayingMedia();
+        OMedia oMedia = Cabinet.getPlayManager().getPlayingMedia();
         if(oMedia != null) {
             binding.tvMusicName.setText(oMedia.getMovie().getTitle());
             binding.tvAlbumName.setText(oMedia.getMovie().getAlbum());
             binding.tvArtistsName.setText(oMedia.getMovie().getArtist());
-            Cabinet.getPlayManager().restartPlay();
         }
-        else {
-            MMLog.d(TAG,"Error oMedia is null!");
-        }
+        Cabinet.getPlayManager().registerStatusListener(this);
+        Cabinet.getPlayManager().startToPlay();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Cabinet.getPlayManager().registerStatusListener(null);
     }
 
     @Override
@@ -123,15 +127,16 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
     @Override
     public void onEventPlayerStatus(PlayerStatusInfo playerStatusInfo) {
         ///MMLog.d(TAG,playerStatusInfo.toString());
+        OMedia oMedia1 = (OMedia) playerStatusInfo.getObj();
         mProgressSeekBar.setMax((int) playerStatusInfo.getLength());
         mProgressSeekBar.setProgress((int) playerStatusInfo.getTimeChanged());
         mTextViewCurrentTime.setText(convertMillisToTime(playerStatusInfo.getTimeChanged()));
         mTextViewTotalTime.setText(convertMillisToTime(playerStatusInfo.getLength()));
         switch (playerStatusInfo.getEventType()) {
             case PlaybackEvent.Status_Opening:
-                binding.tvMusicName.setText(oMedia.getMovie().getTitle());
-                binding.tvAlbumName.setText(oMedia.getMovie().getAlbum());
-                binding.tvArtistsName.setText(oMedia.getMovie().getArtist());
+                binding.tvMusicName.setText(oMedia1.getMovie().getTitle());
+                binding.tvAlbumName.setText(oMedia1.getMovie().getAlbum());
+                binding.tvArtistsName.setText(oMedia1.getMovie().getArtist());
                 break;
             case PlaybackEvent.Status_Ended:
                 mProgressSeekBar.setProgress(mProgressSeekBar.getMax());
