@@ -26,6 +26,7 @@
                 android:layout_gravity="top|left"
                 android:layout_marginLeft="70dp"
                 android:layout_marginTop="100dp"
+                android:textColor="@color/white"
                 android:textSize="22sp"
                 tools:text="87.50" />
 
@@ -36,8 +37,9 @@
                 android:layout_gravity="top|right"
                 android:layout_marginTop="100dp"
                 android:layout_marginRight="70dp"
+                android:textColor="@color/white"
                 android:textSize="22sp"
-                tools:text="87.50" />
+                tools:text="108.00" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -57,7 +59,6 @@
                     android:layout_marginHorizontal="70dp"
                     android:max="10800"
                     android:min="8750"
-                    android:progress="8750"
                     android:progressDrawable="@null"
                     android:thumb="@mipmap/fm_seekbar_progress" />
 
@@ -68,10 +69,10 @@
                     android:layout_marginHorizontal="70dp"
                     android:max="1620"
                     android:min="522"
-                    android:visibility="gone"
                     android:progress="522"
                     android:progressDrawable="@null"
-                    android:thumb="@mipmap/fm_seekbar_progress" />
+                    android:thumb="@mipmap/fm_seekbar_progress"
+                    android:visibility="visible" />
             </FrameLayout>
 
 
@@ -153,10 +154,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="6dp"
                     android:text="105.20"
                     android:textColor="@color/white"
-                    android:textSize="28sp" />
+                    android:textSize="26sp" />
 
 
             </FrameLayout>
@@ -185,11 +186,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="6dp"
 
                     android:text="105.20"
                     android:textColor="@color/white"
-                    android:textSize="28sp" />
+                    android:textSize="26sp" />
 
 
             </FrameLayout>
@@ -219,11 +220,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="6dp"
 
                     android:text="105.20"
                     android:textColor="@color/white"
-                    android:textSize="28sp" />
+                    android:textSize="26sp" />
 
 
             </FrameLayout>
@@ -255,10 +256,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="6dp"
                     android:text="105.20"
                     android:textColor="@color/white"
-                    android:textSize="28sp" />
+                    android:textSize="26sp" />
 
 
             </FrameLayout>
@@ -289,10 +290,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="6dp"
                     android:text="105.20"
                     android:textColor="@color/white"
-                    android:textSize="28sp" />
+                    android:textSize="26sp" />
 
 
             </FrameLayout>
@@ -323,10 +324,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="6dp"
                     android:text="105.20"
                     android:textColor="@color/white"
-                    android:textSize="28sp" />
+                    android:textSize="26sp" />
 
 
             </FrameLayout>
@@ -378,12 +379,43 @@
                     android:layout_height="match_parent"
                     android:src="@mipmap/fm_center_item" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp">
+
+                    <TextView
+                        android:id="@+id/tvChannelFM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="120dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="FM"
+                        android:textColor="@color/white"
+                        android:textSize="28sp" />
+
+                    <TextView
+                        android:id="@+id/tvChannelAM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="120dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="AM"
+                        android:textColor="@color/white"
+                        android:textSize="28sp"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/tvChannel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="120dp"
+                    android:layout_marginTop="116dp"
                     android:text="105.20"
                     android:textColor="@color/white"
                     android:textSize="55sp" />
@@ -410,12 +442,20 @@
                 android:layout_marginRight="130dp">
 
                 <ImageView
+                    android:id="@+id/image_af"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
-                    android:src="@drawable/selector_fm_item_bg2" />
+                    android:background="@mipmap/fm_item_bg2" />
 
                 <ImageView
+                    android:id="@+id/image_af_off"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@mipmap/fm_item_bg2_pres"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/image_af_bg"
                     android:layout_width="78dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
@@ -434,10 +474,17 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
-                    android:src="@drawable/selector_fm_item_bg2" />
+                    android:src="@mipmap/fm_item_bg2" />
 
                 <ImageView
+                    android:id="@+id/image_ta_off"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/fm_item_bg2_pres"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/image_ta"
                     android:layout_width="78dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"
@@ -449,9 +496,19 @@
                 android:layout_width="178dp"
                 android:layout_height="82dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="455dp"
-                android:background="@drawable/selector_fm_item_bg2">
+                android:layout_marginTop="455dp">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@mipmap/fm_item_bg2" />
+
+                <ImageView
+                    android:id="@+id/image_pty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@mipmap/fm_item_bg2_pres"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:layout_width="78dp"
@@ -468,9 +525,17 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="right|bottom"
-            android:clickable="true"
             android:padding="20dp"
-            android:src="@drawable/selector_fm_rds" />
+            android:src="@mipmap/fm_rds" />
+
+        <ImageView
+            android:id="@+id/viewRDS_vi"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="right|bottom"
+            android:padding="20dp"
+            android:src="@mipmap/fm_rds_pres"
+            android:visibility="gone" />
     </FrameLayout>
 
 

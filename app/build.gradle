@@ -92,4 +92,6 @@ dependencies {
     implementation('com.zhuchao.android:libOpenDetection:1.0@aar')//人脸检测识别
     implementation('com.zhuchao.android:libOpenLargeModelDeepLearning:1.0@aar')//大模型与深度学习
     implementation('com.zhuchao.android:libSessionUtils:2.9@aar')//会话管理、杂项
+
+    implementation files('libs/CarSdk_3.2.9.aar')
 }

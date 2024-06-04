@@ -21,7 +21,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyCarApps"
         tools:targetApi="31">
+        <activity
+            android:name=".radio.RadioActivity"
+            android:exported="true"
+            android:label="@string/title_activity_radio"
+            android:icon="@mipmap/fm_radio_icon">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".audio.activity.MainMusicActivity"
             android:exported="true"
@@ -29,24 +39,23 @@
             android:label="@string/title_activity_audio">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".video.activity.MainVideoActivity"
             android:exported="true"
             android:label="@string/title_activity_video">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".audio.activity.MusicPlayingActivity"
             android:exported="false" />
-
         <activity
             android:name=".video.activity.VideoPlayingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
