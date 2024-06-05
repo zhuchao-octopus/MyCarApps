@@ -1,12 +1,15 @@
 package com.octopus.android.car.apps.radio;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.car.api.ApiKit;
 import com.car.api.ApiMain;
@@ -43,6 +46,7 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
         binding = ActivityRadioBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initView();
+
     }
 
     private void initView() {
@@ -64,6 +68,9 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
         binding.viewRightChannel3.setOnClickListener(this);
         binding.viewRDS.setOnClickListener(this);
         binding.viewRDSVi.setOnClickListener(this);
+        binding.viewDoubleCircle.setOnClickListener(this);
+        binding.viewPTY.setOnClickListener(this);
+        binding.viewSignal.setOnClickListener(this);
 
         binding.seekBarFm.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -214,11 +221,43 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
                 ApiRadio.freq(ApiRadio.FREQ_DIRECT, Integer.parseInt(recommendChannelAM[5]));
             }
         } else if (v.getId() == R.id.viewRDS) {
-            ApiRadio.rdsEnable(1);
-        } else if (v.getId() == R.id.viewRDS_vi) {
-            ApiRadio.rdsEnable(0);
+            ApiRadio.rdsEnable(binding.viewRDS.isSelected() ? 0 : 1);
+        } else if (v.getId() == R.id.viewDoubleCircle) {
+            ApiRadio.stero(binding.viewDoubleCircle.isSelected() ? 0 : 1);
+        } else if (v.getId() == R.id.viewPTY) {
+            showAlertDialogPTY(ApiRadio.PTY_DISPLAY);
+        } else if (v.getId() == R.id.viewSignal) {
+            ApiRadio.loc(binding.viewSignal.isSelected() ? 0 : 1);
         }
 
+    }
+
+    /**
+     * 弹框选项
+     *
+     * @param items pty类型
+     */
+    private void showAlertDialogPTY(String[] items) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("PTY");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // 这里处理选项点击事件
+                Toast.makeText(getApplicationContext(), "选择了: " + items[which], Toast.LENGTH_SHORT).show();
+                dialog.dismiss(); // 关闭弹框
+                ApiRadio.rdsPtySeek(which);
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
@@ -243,7 +282,7 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
     public void onConnected(IRemote iRemote, ICallback iCallback) throws RemoteException {
         iRemote.register(new String[]{
                 //注册想要监听是数据，true代表马上返回需要的值
-                ApiRadio.UPDATE_BAND, ApiRadio.UPDATE_FREQ, ApiRadio.UPDATE_RDS_AF_ENABLE, ApiRadio.UPDATE_RDS_TA_ENABLE, ApiRadio.UPDATE_RDS_ENABLE}, iCallback, true);
+                ApiRadio.UPDATE_BAND, ApiRadio.UPDATE_FREQ, ApiRadio.UPDATE_RDS_AF_ENABLE, ApiRadio.UPDATE_RDS_TA_ENABLE, ApiRadio.UPDATE_RDS_ENABLE, ApiRadio.UPDATE_STEREO, ApiRadio.UPDATE_LOC}, iCallback, true);
     }
 
     @Override
@@ -276,10 +315,20 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
                 }
                 break;
             case ApiRadio.UPDATE_RDS_ENABLE:
+                binding.viewRDS.setSelected(value == 1);
+                break;
+            case ApiRadio.UPDATE_STEREO:
                 if (value == 0) {
-                    binding.viewRDSVi.setVisibility(View.GONE);
+                    binding.viewDoubleCircle.setSelected(false);
                 } else if (value == 1) {
-                    binding.viewRDSVi.setVisibility(View.VISIBLE);
+                    binding.viewDoubleCircle.setSelected(true);
+                }
+                break;
+            case ApiRadio.UPDATE_LOC:
+                if (value == 0) {
+                    binding.viewSignal.setSelected(false);
+                } else if (value == 1) {
+                    binding.viewSignal.setSelected(true);
                 }
                 break;
         }
