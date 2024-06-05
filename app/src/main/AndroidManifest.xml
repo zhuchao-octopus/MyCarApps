@@ -23,15 +23,21 @@
         tools:targetApi="31">
         <activity
             android:name=".radio.RadioActivity"
+            android:exported="false"
+            android:taskAffinity="second.affinity" />
+        <activity-alias
+            android:name="RadioActivity"
             android:exported="true"
+            android:icon="@mipmap/fm_radio_icon"
             android:label="@string/title_activity_radio"
-            android:icon="@mipmap/fm_radio_icon">
+            android:targetActivity=".radio.RadioActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
+
         <activity
             android:name=".audio.activity.MainMusicActivity"
             android:exported="true"
@@ -45,14 +51,20 @@
         </activity>
         <activity
             android:name=".video.activity.MainVideoActivity"
+            android:exported="false"
+            android:taskAffinity="three.affinity" />
+        <activity-alias
+            android:name="MainVideoActivity"
             android:exported="true"
-            android:label="@string/title_activity_video">
+            android:icon="@mipmap/ic_multimedia"
+            android:label="@string/title_activity_video"
+            android:targetActivity=".video.activity.MainVideoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
         <activity
             android:name=".audio.activity.MusicPlayingActivity"
             android:exported="false" />
