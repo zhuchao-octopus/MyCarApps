@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/multiStateContainer"
+    android:layout_width="match_parent"
+    tools:background="@mipmap/bg_g"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingHorizontal="28dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/viewSearch"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginRight="16dp"
+            android:background="@mipmap/video_item_bg"
+            app:layout_constraintEnd_toStartOf="@+id/ivInCallLog"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="973dp"
+                android:layout_height="47dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/bt_search_box" />
+
+        </FrameLayout>
+
+
+
+        <ImageView
+            android:id="@+id/ivOutCallLog"
+            android:layout_width="198dp"
+            android:layout_height="122dp"
+            android:background="@drawable/selector_bt_dial_btn"
+            android:clickable="true"
+            android:scaleType="center"
+            android:src="@mipmap/bt_call_outgoing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivInCallLog"
+            android:layout_width="198dp"
+            android:layout_height="122dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/selector_bt_dial_btn"
+            android:clickable="true"
+            android:scaleType="center"
+            android:src="@mipmap/bt_call_received"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivOutCallLog" />
+
+        <ImageView
+            android:id="@+id/ivMissCallLog"
+            android:layout_width="198dp"
+            android:layout_height="122dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/selector_bt_dial_btn"
+            android:clickable="true"
+            android:scaleType="center"
+            android:src="@mipmap/bt_call_missed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivInCallLog" />
+
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="198dp"
+            android:layout_height="122dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/selector_bt_dial_btn"
+            android:clickable="true"
+            android:scaleType="center"
+            android:src="@mipmap/bt_remove"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivMissCallLog" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/viewSearch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSearch"
+            tools:listitem="@layout/item_phone_list" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

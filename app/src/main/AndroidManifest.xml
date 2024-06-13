@@ -21,10 +21,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyCarApps"
         tools:targetApi="31">
+
+        <activity
+            android:name=".video.activity.MainVideoActivity"
+            android:exported="false"
+            android:taskAffinity="three.affinity" />
+        <activity-alias
+            android:name="MainVideoActivity"
+            android:exported="true"
+            android:icon="@mipmap/ic_multimedia"
+            android:label="@string/title_activity_video"
+            android:targetActivity=".video.activity.MainVideoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity
+            android:name=".audio.activity.MusicPlayingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".video.activity.VideoPlayingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:label="@string/title_activity_video_playing"
+            android:theme="@style/Theme.MyCarApps.Fullscreen" />
+        <activity
+            android:name=".bluetooth.BluetoothHomeActivity"
+            android:exported="false"
+            android:taskAffinity="four.affinity" />
         <activity
             android:name=".radio.RadioActivity"
             android:exported="false"
             android:taskAffinity="second.affinity" />
+
         <activity-alias
             android:name="RadioActivity"
             android:exported="true"
@@ -49,31 +81,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".video.activity.MainVideoActivity"
-            android:exported="false"
-            android:taskAffinity="three.affinity" />
         <activity-alias
-            android:name="MainVideoActivity"
+            android:name="BluetoothHomeActivity"
             android:exported="true"
-            android:icon="@mipmap/ic_multimedia"
-            android:label="@string/title_activity_video"
-            android:targetActivity=".video.activity.MainVideoActivity">
+            android:icon="@mipmap/ic_bt"
+            android:label="@string/title_activity_bluetooth"
+            android:targetActivity=".bluetooth.BluetoothHomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity-alias>
-        <activity
-            android:name=".audio.activity.MusicPlayingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".video.activity.VideoPlayingActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:exported="false"
-            android:label="@string/title_activity_video_playing"
-            android:theme="@style/Theme.MyCarApps.Fullscreen" />
+
     </application>
 
 </manifest>
