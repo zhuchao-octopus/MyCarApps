@@ -19,4 +19,9 @@
     <style name="Widget.Theme.MyCarApps.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
+
+    <style name="MyCustomTabTextAppearance" parent="TextAppearance.AppCompat.Menu">
+        <item name="android:textSize">28sp</item> <!-- 设置你想要的字体大小 -->
+    </style>
+
 </resources>

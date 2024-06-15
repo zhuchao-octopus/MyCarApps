@@ -1,15 +1,16 @@
 package com.octopus.android.car.apps.bluetooth;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.car.api.ApiBt;
@@ -18,10 +19,10 @@ import com.car.ipc.IRemote;
 import com.octopus.android.car.apps.bluetooth.adapter.BtPhoneBookAdapter;
 import com.octopus.android.car.apps.bluetooth.bean.PhoneBookBean;
 import com.octopus.android.car.apps.common.BaseViewBindingFragment;
-import com.octopus.android.car.apps.databinding.FragmentBluetoothDialBinding;
 import com.octopus.android.car.apps.databinding.FragmentBluetoothPhoneBinding;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -53,7 +54,34 @@ public class BluetoothPhoneFragment extends BaseViewBindingFragment<FragmentBlue
         btPhoneBookAdapter = new BtPhoneBookAdapter(new ArrayList<>());
         binding.recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recycleView.setAdapter(btPhoneBookAdapter);
+        binding.ivDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<PhoneBookBean> bookBeanList = btPhoneBookAdapter.getBookDate();
+                if (!bookBeanList.isEmpty()) {
+                    Log.d(TAG, "onClick: " + bookBeanList.size());
+                    ApiBt.deleteContact(bookBeanList.get(0).getName(), bookBeanList.get(0).getNumber());
+                    btPhoneBookAdapter.removeData(0);
+                }
 
+            }
+        });
+        binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    // 执行搜索操作
+
+                    // 隐藏软键盘
+                    InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -67,6 +95,7 @@ public class BluetoothPhoneFragment extends BaseViewBindingFragment<FragmentBlue
                 //注册想要监听是数据，true代表马上返回需要的值
                 ApiBt.UPDATE_BOOK,//电话本
                 ApiBt.UPDATE_PBAP_STATE,//电话本下载状态
+                ApiBt.UPDATE_SEARCH_LIST,//电话本下载状态
         }, iCallback, true);
     }
 

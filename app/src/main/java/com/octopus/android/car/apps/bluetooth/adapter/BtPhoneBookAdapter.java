@@ -18,6 +18,7 @@ import com.octopus.android.car.apps.databinding.ItemPairListBinding;
 import com.octopus.android.car.apps.databinding.ItemPhoneListBinding;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,9 +39,18 @@ public class BtPhoneBookAdapter extends RecyclerView.Adapter<BtPhoneBookAdapter.
         notifyDataSetChanged();
     }
 
+    public void removeData(int index) {
+        mItemList.remove(index);
+        notifyDataSetChanged();
+    }
+
     public void setDataItem(PhoneBookBean items) {
         mItemList.add(items);
         notifyItemChanged(mItemList.size());
+    }
+
+    public List<PhoneBookBean> getBookDate() {
+        return mItemList;
     }
 
     @NonNull

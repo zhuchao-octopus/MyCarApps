@@ -64,6 +64,7 @@
     <string name="title_activity_video" translatable="false">Video</string>
     <string name="title_activity_recorder" translatable="false">Recorder</string>
     <string name="title_activity_bluetooth" translatable="false">Bluetooth</string>
+    <string name="title_activity_eq" translatable="false">EQ</string>
 
 
     <string name="title_home" translatable="false">Home</string>

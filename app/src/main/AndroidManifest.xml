@@ -51,11 +51,16 @@
         <activity
             android:name=".bluetooth.BluetoothHomeActivity"
             android:exported="false"
-            android:taskAffinity="four.affinity" />
+            android:taskAffinity="four.affinity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".radio.RadioActivity"
             android:exported="false"
             android:taskAffinity="second.affinity" />
+        <activity
+            android:name=".equalizer.EqualizerHomeActivity"
+            android:exported="false"
+            android:taskAffinity="five.affinity" />
 
         <activity-alias
             android:name="RadioActivity"
@@ -81,6 +86,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity-alias
             android:name="BluetoothHomeActivity"
             android:exported="true"
@@ -93,7 +99,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity-alias>
+        <activity-alias
+            android:name="EqualizerHomeActivity"
+            android:exported="true"
+            android:icon="@mipmap/eq_logo"
+            android:label="@string/title_activity_eq"
+            android:targetActivity=".equalizer.EqualizerHomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
     </application>
 
 </manifest>

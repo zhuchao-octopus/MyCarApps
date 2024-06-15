@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/multiStateContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_g"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:background="@mipmap/b_bg"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/eq_fl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="60dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/eq_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/b_l_bg_pressed" />
+
+            <TextView
+                android:id="@+id/eq_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="EQ"
+                android:textColor="#ffffff"
+                android:textSize="38sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/zone_fl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="60dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/zone_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/b_l_bg_pressed"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/zone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="ZONE"
+                android:textColor="#ffffff"
+                android:textSize="32sp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <com.octopus.android.car.apps.equalizer.ChildHandlingRecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="45dp"
+        android:overScrollMode="never"
+        tools:listitem="@layout/fragment_eq_ajust_item" />
+
+    <LinearLayout
+        android:id="@+id/zone_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="45dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="6dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/eq_bg" />
+
+                <com.octopus.android.car.apps.equalizer.VerticalSeekBar
+                    android:id="@+id/seekBarVol"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="1dp"
+                    android:max="20"
+                    android:min="0"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:progress="10"
+                    android:progressDrawable="@null"
+                    android:thumb="@mipmap/thumb_red"
+                    android:thumbOffset="0dp" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@mipmap/bg_kuang"
+                android:gravity="center"
+                android:paddingHorizontal="15dp"
+                android:text="低音炮"
+                android:textColor="#ffffff"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="36dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/eq_bg" />
+
+                <com.octopus.android.car.apps.equalizer.VerticalSeekBar
+                    android:id="@+id/loudness"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="1dp"
+                    android:max="20"
+                    android:min="0"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:progress="10"
+                    android:progressDrawable="@null"
+                    android:thumb="@mipmap/thumb_red"
+                    android:thumbOffset="0dp" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@mipmap/bg_kuang"
+                android:gravity="center"
+                android:paddingHorizontal="15dp"
+                android:text=" 响度 "
+                android:textColor="#ffffff"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zone_scope_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="85dp"
+            android:background="@mipmap/zone_bg"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/zone_red_cursor_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                android:background="@mipmap/zone" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="30dp"
+            android:clickable="true"
+            android:scaleType="center"
+            android:src="@drawable/selector_zone_reset" />
+    </LinearLayout>
+</LinearLayout>
