@@ -3,17 +3,21 @@ package com.octopus.android.car.apps.bluetooth;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatSeekBar;
 
 import com.car.api.ApiBt;
+import com.car.api.ApiSound;
+import com.car.api.CarService;
 import com.car.ipc.ICallback;
 import com.car.ipc.IRemote;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.common.BaseViewBindingFragment;
 import com.octopus.android.car.apps.databinding.FragmentBluetoothDialBinding;
@@ -102,9 +106,40 @@ public class BluetoothDialFragment extends BaseViewBindingFragment<FragmentBluet
             ApiBt.hang();
         } else if (v.getId() == R.id.viewVoice) {
             //音量调节
-
+//            showDialog();
+            CarService.me().cmd(ApiSound.CMD_VOL, ApiSound.VOL_SHOW_UI);
         }
 
+    }
+
+    private void showDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.bottom_vol_dialog, null);
+        TextView volTv = dialogView.findViewById(R.id.vol_tv);
+        AppCompatSeekBar appCompatSeekBar = dialogView.findViewById(R.id.vol_dial);
+        // 创建BottomSheetDialog
+        BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
+
+        // 设置布局到弹框
+        dialog.setContentView(dialogView);
+        dialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+        // 显示弹框
+        dialog.show();
+        appCompatSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                volTv.setText(progress + "");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     @Override

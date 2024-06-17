@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="0dp"
+        android:src="@mipmap/bg_g">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="130dp"
+            android:layout_marginRight="100dp"
+            android:background="@mipmap/video_item_bg_press"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:text="音量"
+            android:textColor="@color/white"
+            android:textSize="32sp" />
+
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/vol_dial"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="130dp"
+            android:layout_marginRight="100dp"
+            android:max="20"
+            android:min="0"
+            android:progressDrawable="@null"
+            android:thumb="@mipmap/fm_seekbar_progress" />
+
+        <TextView
+            android:id="@+id/vol_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="30dp"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="32sp" />
+    </RelativeLayout>
+
+</LinearLayout>

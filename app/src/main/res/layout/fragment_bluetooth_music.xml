@@ -96,10 +96,11 @@
                 android:id="@+id/viewPrev"
                 android:layout_width="220dp"
                 android:layout_height="268dp"
-                android:background="@drawable/select_bt_music_item_other">
+                android:background="@drawable/select_bt_music_item_other"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
-                    android:id="@+id/ivPrev"
                     android:layout_width="83dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center_horizontal"
@@ -121,7 +122,9 @@
                 android:layout_width="252dp"
                 android:layout_height="305dp"
                 android:layout_marginHorizontal="40dp"
-                android:background="@drawable/select_bt_music_item_center">
+                android:background="@drawable/select_bt_music_item_center"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:id="@+id/ivPlay"
@@ -145,10 +148,11 @@
                 android:id="@+id/viewNext"
                 android:layout_width="220dp"
                 android:layout_height="268dp"
-                android:background="@drawable/select_bt_music_item_other">
+                android:background="@drawable/select_bt_music_item_other"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
-                    android:id="@+id/ivNext"
                     android:layout_width="83dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center_horizontal"

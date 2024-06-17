@@ -56,12 +56,14 @@ public class BluetoothPhoneLogFragment extends BaseViewBindingFragment<FragmentB
         binding.ivInCallLog.setOnClickListener(this);
         binding.ivOutCallLog.setOnClickListener(this);
         binding.ivMissCallLog.setOnClickListener(this);
+        binding.ivDelete.setOnClickListener(this);
         btPhoneBookAdapter = new BtPhoneBookAdapter(new ArrayList<>());
         binding.recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recycleView.setAdapter(btPhoneBookAdapter);
         callIn.clear();
         callOut.clear();
         callMiss.clear();
+
     }
 
     @Override
@@ -149,7 +151,16 @@ public class BluetoothPhoneLogFragment extends BaseViewBindingFragment<FragmentB
             btPhoneBookAdapter.setData(callOut);
         } else if (v.getId() == R.id.ivMissCallLog) {
             btPhoneBookAdapter.setData(callMiss);
+        } else if (v.getId() == R.id.ivDelete) {
+           //删除记录
+            List<PhoneBookBean> bookBeanList = btPhoneBookAdapter.getBookDate();
+            if (!bookBeanList.isEmpty()) {
+                Log.d(TAG, "onClick: " + bookBeanList.size());
+                ApiBt.deleteContact(bookBeanList.get(0).getName(), bookBeanList.get(0).getNumber());
+                btPhoneBookAdapter.removeData(0);
+            }
         }
+
     }
 
 }

@@ -44,11 +44,9 @@ public class BluetoothMusicFragment extends BaseViewBindingFragment<FragmentBlue
         ApiMain.appId(ApiMain.APP_ID_BTAV, ApiMain.APP_ID_BTAV);
 //        ApiMain.appId(ApiMain.APP_ID_AUDIO_PLAYER, ApiMain.APP_ID_AUDIO_PLAYER);
         binding.viewNext.setOnClickListener(this);
-        binding.ivNext.setOnClickListener(this);
         binding.viewPlay.setOnClickListener(this);
         binding.viewPrev.setOnClickListener(this);
-        binding.ivPrev.setOnClickListener(this);
-        binding.ivPlay.setOnClickListener(this);
+
     }
 
     @Override
@@ -92,10 +90,10 @@ public class BluetoothMusicFragment extends BaseViewBindingFragment<FragmentBlue
             case ApiBt.UPDATE_PLAY_STATE:
                 int musicState = params.getInt("value");
                 if (musicState == ApiBt.PLAYSTATE_PAUSE) {
-                    binding.ivPlay.setImageResource(R.mipmap.bt_music_play);
+                    binding.ivPlay.setImageResource(R.drawable.selector_play);
                     binding.tvPlay.setText("Play");
                 } else if (musicState == ApiBt.PLAYSTATE_PLAY) {
-                    binding.ivPlay.setImageResource(R.mipmap.bt_music_pause);
+                    binding.ivPlay.setImageResource(R.drawable.selector_stop);
                     binding.tvPlay.setText("Pause");
                 }
                 break;
@@ -117,15 +115,9 @@ public class BluetoothMusicFragment extends BaseViewBindingFragment<FragmentBlue
     public void onClick(View v) {
         if (v.getId() == R.id.viewNext) {
             ApiBt.btavNext();
-        } else if (v.getId() == R.id.ivNext) {
-            ApiBt.btavNext();
         } else if (v.getId() == R.id.viewPlay) {
             ApiBt.btavPlayPause();
-        } else if (v.getId() == R.id.ivPlay) {
-            ApiBt.btavPlayPause();
         } else if (v.getId() == R.id.viewPrev) {
-            ApiBt.btavPrev();
-        } else if (v.getId() == R.id.ivPrev) {
             ApiBt.btavPrev();
         }
 
