@@ -101,6 +101,9 @@ public class BluetoothPhoneFragment extends BaseViewBindingFragment<FragmentBlue
 
     @Override
     public void onUpdate(Bundle params) {
+        if (binding == null) {
+            return;
+        }
         if (params == null) return;
         String id = params.getString("id");
         if (id == null) return;

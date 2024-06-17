@@ -22,18 +22,11 @@ import com.octopus.android.car.apps.databinding.FragmentBluetoothSettingBinding;
  */
 public class BluetoothSettingFragment extends BaseViewBindingFragment<FragmentBluetoothSettingBinding> {
     private final String TAG = "FolderItemFragment";
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public BluetoothSettingFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static BluetoothSettingFragment newInstance(int columnCount) {
         BluetoothSettingFragment fragment = new BluetoothSettingFragment();
@@ -81,6 +74,9 @@ public class BluetoothSettingFragment extends BaseViewBindingFragment<FragmentBl
 
     @Override
     public void onUpdate(Bundle params) {
+        if (binding == null) {
+            return;
+        }
         if (params == null) return;
         String id = params.getString("id");
         if (id != null) {

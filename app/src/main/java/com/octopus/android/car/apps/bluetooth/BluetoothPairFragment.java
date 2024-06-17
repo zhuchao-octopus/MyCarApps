@@ -113,16 +113,18 @@ public class BluetoothPairFragment extends BaseViewBindingFragment<FragmentBluet
     @Override
     public void onUpdate(Bundle params) {
         if (params == null) return;
+        if (binding == null) {
+            return;
+        }
         String id = params.getString("id");
         Log.d(TAG, "onUpdate:  " + id);
         if (id != null) {
             switch (id) {
                 case ApiBt.UPDATE_PHONE_STATE:
                     //蓝牙连接状态
-                    int value = params.getInt("value");
-                    String phoneMacAddress = params.getString("phoneMacAddr");
-                    String phoneName = params.getString("phoneName");
-                    Log.d(TAG, "onUpdate 蓝牙:  " + "   phoneMacAddress:" + phoneMacAddress + " phonename: " + phoneName + " : " + hashMap.containsKey(phoneMacAddress) + "  : " + value);
+//                    int value = params.getInt("value");
+//                    String phoneMacAddress = params.getString("phoneMacAddr");
+//                    String phoneName = params.getString("phoneName");
                     break;
                 case ApiBt.UPDATE_PAIR_LIST:
                     addDevice(params, true);
@@ -132,7 +134,6 @@ public class BluetoothPairFragment extends BaseViewBindingFragment<FragmentBluet
                     break;
                 case ApiBt.UPDATE_PHONE_MAC_ADDR:
                     String macAddr = params.getString("value");
-                    Log.d(TAG, "onUpdate: 已连接:  " + macAddr);
                     btPairAdapter.setConnectMac(macAddr);
                     binding.ivConnect.setSelected(!TextUtils.isEmpty(macAddr));
                     break;

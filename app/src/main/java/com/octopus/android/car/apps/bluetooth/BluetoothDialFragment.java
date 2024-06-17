@@ -22,15 +22,9 @@ import com.octopus.android.car.apps.databinding.FragmentBluetoothDialBinding;
  * A fragment representing a list of Items.
  */
 public class BluetoothDialFragment extends BaseViewBindingFragment<FragmentBluetoothDialBinding> implements View.OnClickListener {
-    private final String TAG = "FolderItemFragment";
-    // TODO: Customize parameter argument names
+    private final String TAG = "BluetoothDialFragment";
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public BluetoothDialFragment() {
     }
 
@@ -42,7 +36,6 @@ public class BluetoothDialFragment extends BaseViewBindingFragment<FragmentBluet
     @Override
     protected void setListener() {
         int childCount = binding.viewDial.getChildCount();
-        Log.d(TAG, "setListener: " + childCount);
         for (int i = 0; i < childCount; i++) {
             LinearLayout child = (LinearLayout) binding.viewDial.getChildAt(i);
             int childLL = child.getChildCount();
@@ -56,7 +49,6 @@ public class BluetoothDialFragment extends BaseViewBindingFragment<FragmentBluet
 //                            Toast.makeText(getContext(), "号码错误", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        Log.d(TAG, "onClick: " + childView.getText().toString());
                         String number = binding.tvPhoneNumber.getText().toString();
                         String numberAll = number + childView.getText().toString();
                         binding.tvPhoneNumber.setText(numberAll);
@@ -125,6 +117,9 @@ public class BluetoothDialFragment extends BaseViewBindingFragment<FragmentBluet
 
     @Override
     public void onUpdate(Bundle params) {
+        if (binding == null) {
+            return;
+        }
         if (params == null) return;
         String id = params.getString("id");
         if (TextUtils.isEmpty(id)) {

@@ -84,6 +84,9 @@ public class BluetoothPhoneLogFragment extends BaseViewBindingFragment<FragmentB
 
     @Override
     public void onUpdate(Bundle params) {
+        if (binding == null) {
+            return;
+        }
         if (params == null) return;
         String id = params.getString("id");
         if (id == null) return;

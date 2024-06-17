@@ -19,18 +19,11 @@ import com.octopus.android.car.apps.databinding.FragmentBluetoothPhoneBinding;
  */
 public class BluetoothMusicFragment extends BaseViewBindingFragment<FragmentBluetoothMusicBinding> implements View.OnClickListener {
     private final String TAG = "BluetoothMusicFragment";
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public BluetoothMusicFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static BluetoothMusicFragment newInstance(int columnCount) {
         BluetoothMusicFragment fragment = new BluetoothMusicFragment();
@@ -77,6 +70,9 @@ public class BluetoothMusicFragment extends BaseViewBindingFragment<FragmentBlue
 
     @Override
     public void onUpdate(Bundle params) {
+        if (binding == null) {
+            return;
+        }
         if (params == null) return;
         String id = params.getString("id");
         switch (id) {
