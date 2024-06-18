@@ -1,10 +1,12 @@
 package com.octopus.android.car.apps.equalizer;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -29,6 +31,8 @@ public class EqAdjustFragment extends BaseViewBindingFragment<FragmentEqAjustBin
     private final String TAG = "EqAdjustFragment";
     private EqAdjustAdapter eqAdjustAdapter;
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private GestureDetector gestureDetector;
+    private float lastX, lastY;
 
     public static EqAdjustFragment newInstance(int columnCount) {
         EqAdjustFragment fragment = new EqAdjustFragment();
@@ -49,6 +53,7 @@ public class EqAdjustFragment extends BaseViewBindingFragment<FragmentEqAjustBin
         return FragmentEqAjustBinding.inflate(getLayoutInflater());
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void setListener() {
         binding.eqFl.setOnClickListener(this);
@@ -83,7 +88,41 @@ public class EqAdjustFragment extends BaseViewBindingFragment<FragmentEqAjustBin
             }
         });
         binding.recyclerView.setAdapter(eqAdjustAdapter);
+        gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onDown(MotionEvent e) {
+                lastX = e.getRawX();
+                lastY = e.getRawY();
+                return true;
+            }
 
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                float dx = e2.getRawX() - lastX;
+                float dy = e2.getRawY() - lastY;
+                int newLeft = (int) (binding.zoneRedCursorIv.getLeft() + dx);
+                int newTop = (int) (binding.zoneRedCursorIv.getTop() + dy);
+                int newRight = (int) (binding.zoneRedCursorIv.getRight() + dx);
+                int newBottom = (int) (binding.zoneRedCursorIv.getBottom() + dy);
+                // 限制移动范围在外部图片内
+                if (newLeft >= 0 && newRight <= binding.zoneScopeLl.getWidth() && newTop >= 0 && newBottom <= binding.zoneScopeLl.getHeight()) {
+                    binding.zoneRedCursorIv.layout(newLeft, newTop, newRight, newBottom);
+                    Log.d(TAG, "onScroll:  " + newLeft + " newTop:  " + newTop);
+                }
+
+                lastX = e2.getRawX();
+                lastY = e2.getRawY();
+                return true;
+            }
+        });
+
+        binding.zoneRedCursorIv.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                gestureDetector.onTouchEvent(event);
+                return true;
+            }
+        });
     }
 
     @Override
