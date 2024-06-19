@@ -27,9 +27,8 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="134dp"
+                android:layout_width="155dp"
                 android:layout_height="93dp"
-
                 android:scaleType="centerCrop"
                 android:src="@mipmap/bt_person2"
                 app:layout_constraintBottom_toTopOf="@+id/divider"
@@ -45,7 +44,7 @@
                 android:maxLines="1"
                 android:paddingLeft="65dp"
                 android:textColor="#ffffff"
-                android:textSize="34sp"
+                android:textSize="28sp"
                 tools:text="bsh" />
 
             <TextView

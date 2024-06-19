@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.audio.activity.MusicPlayingActivity;
-import com.octopus.android.car.apps.common.adapter.OMediaItemRecyclerViewAdapter;
+import com.octopus.android.car.apps.audio.adapter.PlayingListAdapter;
 import com.zhuchao.android.fbase.MessageEvent;
 import com.zhuchao.android.fbase.MethodThreadMode;
 import com.zhuchao.android.fbase.TCourierSubscribe;
@@ -34,7 +34,7 @@ public class CollectionItemFragment extends BaseFragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OMediaItemRecyclerViewAdapter mOMediaItemRecyclerViewAdapter;
+    private PlayingListAdapter mPlayingListAdapter;
     private RecyclerView mRecyclerView;
     private TextView mEmptyView;
     private VideoList mVideoList = Cabinet.getPlayManager().getFavouriteList();
@@ -76,15 +76,15 @@ public class CollectionItemFragment extends BaseFragment {
         } else {
             mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
-        mOMediaItemRecyclerViewAdapter = new OMediaItemRecyclerViewAdapter(mVideoList.toOMediaList());
-        mRecyclerView.setAdapter(mOMediaItemRecyclerViewAdapter);
+        mPlayingListAdapter = new PlayingListAdapter(mVideoList.toOMediaList());
+        mRecyclerView.setAdapter(mPlayingListAdapter);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mOMediaItemRecyclerViewAdapter.setOnItemClickListener(new OMediaItemRecyclerViewAdapter.OnItemClickListener() {
+        mPlayingListAdapter.setOnItemClickListener(new PlayingListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, OMedia oMedia) {
                 if (oMedia != null) {
@@ -97,7 +97,7 @@ public class CollectionItemFragment extends BaseFragment {
     }
 
     private void checkIfEmpty() {
-        if (mOMediaItemRecyclerViewAdapter.getItemCount() == 0) {
+        if (mPlayingListAdapter.getItemCount() == 0) {
             mRecyclerView.setVisibility(View.GONE);
             mEmptyView.setVisibility(View.VISIBLE);
         } else {
@@ -109,8 +109,8 @@ public class CollectionItemFragment extends BaseFragment {
     @SuppressLint("NotifyDataSetChanged")
     private void updateData(int dataId) {
         mVideoList = Cabinet.getPlayManager().getFavouriteList();
-        mOMediaItemRecyclerViewAdapter.setData(mVideoList.toOMediaList());
-        mOMediaItemRecyclerViewAdapter.notifyDataSetChanged();
+        mPlayingListAdapter.setData(mVideoList.toOMediaList());
+        mPlayingListAdapter.notifyDataSetChanged();
         checkIfEmpty();
     }
 

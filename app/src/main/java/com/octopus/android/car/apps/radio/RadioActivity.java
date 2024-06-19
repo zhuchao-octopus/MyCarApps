@@ -348,12 +348,15 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
             binding.tvChannelAM.setVisibility(View.VISIBLE);
             setChanelDate(recommendChannelAM, 1);
             binding.seekBarFm.setVisibility(View.GONE);
-            binding.seekBarAm.setVisibility(View.VISIBLE);
             //更新频道滑动条
-            binding.seekBarAm.setProgress(Integer.parseInt(freqText));
+            binding.seekBarAm.setProgress(sFreq);
+            binding.seekBarAm.setVisibility(View.VISIBLE);
         } else if (sBand >= ApiRadio.BAND_FM_INDEX_BEGIN && sBand < ApiRadio.BAND_FM_INDEX_END) {
             //FM
             double d = sFreq * 1.0 / 100;
+            if (d < 17) {
+                return;
+            }
             DecimalFormat decimalFormat = new DecimalFormat("#.0");
             String formattedNumber = decimalFormat.format(d);
             String freqText = formattedNumber + "0";
@@ -364,9 +367,9 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
             setChanelDate(recommendChannelFM, 0);
             String end = freqText.replace(".", "");
             //更新频道滑动条
-            binding.seekBarFm.setVisibility(View.VISIBLE);
             binding.seekBarAm.setVisibility(View.GONE);
             binding.seekBarFm.setProgress(Integer.parseInt(end));
+            binding.seekBarFm.setVisibility(View.VISIBLE);
         }
     }
 

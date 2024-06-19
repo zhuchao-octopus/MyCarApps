@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp"
     android:paddingHorizontal="8dp">
 
     <LinearLayout
@@ -21,18 +22,17 @@
             android:id="@+id/list_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:clickable="false"
             android:focusable="false">
 
             <ImageView
                 android:id="@+id/iv_title"
-                android:layout_width="151dp"
-                android:layout_height="90dp"
+                android:layout_width="162dp"
+                android:layout_height="93dp"
                 android:background="@drawable/selector_recycler_item"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@mipmap/ic_video"
+                android:src="@mipmap/ic_music_playing"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -40,12 +40,11 @@
             <LinearLayout
                 android:id="@+id/itemContentView"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="93dp"
                 android:background="@drawable/video_item_bg"
                 android:clickable="true"
                 android:focusable="true"
                 android:orientation="vertical"
-                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/ivStatus"
                 app:layout_constraintStart_toEndOf="@id/iv_title"
@@ -56,11 +55,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
+                    android:gravity="center|left"
                     android:clickable="false"
                     android:focusable="false"
                     android:maxLines="1"
                     android:textColor="#ffffff"
-                    android:textSize="30sp"
+                    android:textSize="26sp"
                     tools:text="测试视频文件名称" />
 
                 <TextView
@@ -71,10 +71,10 @@
                     android:clickable="false"
                     android:ellipsize="marquee"
                     android:focusable="false"
-                    android:visibility="gone"
                     android:maxLines="1"
                     android:text="@string/textview_default"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <ImageView
@@ -99,7 +99,7 @@
         <ImageView
             android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="6dp"
             android:clickable="false"
             android:focusable="false"
             android:src="@mipmap/video_divider" />

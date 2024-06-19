@@ -1,7 +1,5 @@
-package com.octopus.android.car.apps.common.adapter;
+package com.octopus.android.car.apps.audio.adapter;
 
-import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,63 +9,44 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.databinding.FragmentItemBinding;
-import com.zhuchao.android.fbase.MediaFile;
-import com.zhuchao.android.fbase.bean.FolderBean;
+import com.octopus.android.car.apps.databinding.FragmentPlayingItemBinding;
+import com.zhuchao.android.video.OMedia;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderItemRecyclerViewAdapter.ViewHolder> {
+public class PlayingListAdapter extends RecyclerView.Adapter<PlayingListAdapter.ViewHolder> {
 
-    private List<FolderBean> mItemList;
+    private List<OMedia> mItemList;
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         onItemClickListener = listener;
     }
 
-    public FolderItemRecyclerViewAdapter(List<FolderBean> items) {
+    public PlayingListAdapter(List<OMedia> items) {
         mItemList = items;
     }
 
-    public void setData(List<FolderBean> items) {
+    public void setData(List<OMedia> items) {
         mItemList = items;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(FragmentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(FragmentPlayingItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mItemList.get(position);
         ///holder.mIdView.setText(mValues.get(position).id);
-        if (holder.mItem.getSubItemCount() > 0) holder.mTextViewTitle.setText(holder.mItem.getName() + " (" + holder.mItem.getSubItemCount() + ")");
-        else holder.mTextViewTitle.setText(holder.mItem.getName());
-        holder.mTextViewSubTitle.setText(holder.mItem.getPathName());
-
-        if (holder.mItem.isFileBean()) {
-            if (MediaFile.isVideoFile(holder.mItem.getPathName())) {
-                ///Context context = holder.itemView.getContext();
-                Bitmap bitmap = holder.mItem.getVideoFileFrame();
-                if (bitmap != null) {
-                    holder.mImageViewTitle.setImageBitmap(bitmap);
-                    holder.mImageViewTitle.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                } else holder.mImageViewTitle.setImageResource(R.mipmap.ic_video);
-            } else if (MediaFile.isAudioFile(holder.mItem.getPathName())) holder.mImageViewTitle.setImageResource(R.mipmap.ic_music_playing);
-            else holder.mImageViewTitle.setImageResource(R.mipmap.ic_launcher);
-        } else {
-            holder.mImageViewTitle.setImageResource(R.mipmap.folder);
-        }
-
+        holder.mTextViewTitle.setText(mItemList.get(position).getName());
+        holder.mTextViewSubTitle.setText(mItemList.get(position).getPathName());
         holder.mImageViewTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,26 +96,26 @@ public class FolderItemRecyclerViewAdapter extends RecyclerView.Adapter<FolderIt
         public final TextView mTextViewSubTitle;
         public final ImageView mImageViewStatus;
         public final View mItemContentView;
-        public FolderBean mItem;
+        public OMedia mItem;
 
-        public ViewHolder(FragmentItemBinding binding) {
+        public ViewHolder(FragmentPlayingItemBinding binding) {
             super(binding.getRoot());
+            ///mIdView = binding.itemNumber;
             mImageViewTitle = binding.ivTitle;
             mTextViewTitle = binding.tvTitle;
             mTextViewSubTitle = binding.tvSubtitle;
             mImageViewStatus = binding.ivStatus;
             mItemContentView = binding.itemContentView;
-            mImageViewTitle.setScaleType(ImageView.ScaleType.FIT_CENTER);
         }
 
-        public FolderBean getItem() {
+        public OMedia getItem() {
             return mItem;
         }
 
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position, FolderBean folderBean);
+        void onItemClick(int position, OMedia oMedia);
     }
 
 }

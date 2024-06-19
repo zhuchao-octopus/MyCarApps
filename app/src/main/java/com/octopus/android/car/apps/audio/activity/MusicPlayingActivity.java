@@ -54,7 +54,7 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
     @Override
     public void onClick(View v) {
         if (v.equals(binding.ivPlayList)) {
-            openLocalActivity(MainMusicActivity.class);
+            finish();
         } else if (v.equals(binding.viewMode)) {
             switch (Cabinet.getPlayManager().getPlayOrder()) {
                 case DataID.PLAY_MANAGER_PLAY_ORDER2:
