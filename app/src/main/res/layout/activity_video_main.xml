@@ -23,7 +23,7 @@
             android:id="@+id/viewPlayList"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="180dp"
+            android:layout_marginStart="220dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1">
 
@@ -36,8 +36,8 @@
 
                 <ImageView
                     android:id="@+id/ivPlayList"
-                    android:layout_width="60dp"
-                    android:layout_height="45dp"
+                    android:layout_width="62dp"
+                    android:layout_height="50dp"
                     android:background="@drawable/ripple_effect_play_list"
                     android:clickable="false"
                     android:src="@drawable/selector_play_list" />
@@ -49,7 +49,7 @@
                     android:includeFontPadding="false"
                     android:text="@string/tab_name_playing"
                     android:textColor="#ffffff"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
         </FrameLayout>
@@ -71,7 +71,7 @@
                 <ImageView
                     android:id="@+id/ivSD"
                     android:layout_width="45dp"
-                    android:layout_height="48dp"
+                    android:layout_height="52dp"
                     android:background="@drawable/ripple_effect_sd_list"
                     android:clickable="false"
                     android:src="@drawable/selector_sd_list" />
@@ -83,7 +83,7 @@
                     android:includeFontPadding="false"
                     android:text="@string/tab_name_sd"
                     android:textColor="#ffffff"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
         </FrameLayout>
@@ -104,8 +104,8 @@
 
                 <ImageView
                     android:id="@+id/ivUsb"
-                    android:layout_width="55dp"
-                    android:layout_height="50dp"
+                    android:layout_width="41dp"
+                    android:layout_height="52dp"
                     android:background="@drawable/ripple_effect_usb_list"
                     android:clickable="false"
                     android:src="@drawable/selector_usb_list" />
@@ -117,7 +117,7 @@
                     android:includeFontPadding="false"
                     android:text="@string/tab_name_usb"
                     android:textColor="#ffffff"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
         </FrameLayout>
@@ -127,7 +127,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="180dp"
+            android:layout_marginEnd="220dp"
             android:layout_weight="1">
 
             <LinearLayout
@@ -140,7 +140,7 @@
                 <ImageView
                     android:id="@+id/ivFolder"
                     android:layout_width="55dp"
-                    android:layout_height="50dp"
+                    android:layout_height="52dp"
                     android:background="@drawable/ripple_effect_folder_list"
                     android:clickable="false"
                     android:src="@drawable/selector_folder_list" />
@@ -152,7 +152,7 @@
                     android:includeFontPadding="false"
                     android:text="@string/tab_name_folder"
                     android:textColor="#ffffff"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
         </FrameLayout>

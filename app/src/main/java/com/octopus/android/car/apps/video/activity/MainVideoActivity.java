@@ -108,21 +108,25 @@ public class MainVideoActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         unSelectAllTabView();
-        if (v.getId() == R.id.ivPlayList || v.getId() ==R.id.tvPlayList) {
+        if (v.getId() == R.id.ivPlayList || v.getId() == R.id.tvPlayList) {
             replaceFragment(R.id.fragment_container, mPlayingItemFragment);
-            v.setSelected(true);
+            binding.ivPlayList.setSelected(true);
+            binding.tvPlayList.setSelected(true);
             setColor(binding.tvPlayList, R.color.colorAccent);
-        } else if (v.getId() == R.id.ivSD || v.getId() ==R.id.tvSD) {
+        } else if (v.getId() == R.id.ivSD || v.getId() == R.id.tvSD) {
             replaceFragment(R.id.fragment_container, mSDItemFragment);
-            v.setSelected(true);
+            binding.ivSD.setSelected(true);
+            binding.tvSD.setSelected(true);
             setColor(binding.tvSD, R.color.colorAccent);
-        } else if (v.getId() == R.id.ivUsb || v.getId() ==R.id.tvUSB) {
+        } else if (v.getId() == R.id.ivUsb || v.getId() == R.id.tvUSB) {
             replaceFragment(R.id.fragment_container, mUSBItemFragment);
-            v.setSelected(true);
+            binding.ivUsb.setSelected(true);
+            binding.tvUSB.setSelected(true);
             setColor(binding.tvUSB, R.color.colorAccent);
-        } else if (v.getId() == R.id.ivFolder || v.getId() ==R.id.tvFolder) {
+        } else if (v.getId() == R.id.ivFolder || v.getId() == R.id.tvFolder) {
             replaceFragment(R.id.fragment_container, mFolderItemFragment);
-            v.setSelected(true);
+            binding.ivFolder.setSelected(true);
+            binding.tvFolder.setSelected(true);
             setColor(binding.tvFolder, R.color.colorAccent);
         }
     }

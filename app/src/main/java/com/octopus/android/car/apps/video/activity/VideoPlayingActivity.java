@@ -19,6 +19,7 @@ import androidx.appcompat.app.ActionBar;
 
 import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.databinding.ActivityVideoPlayingBinding;
+import com.octopus.android.car.apps.equalizer.EqualizerHomeActivity;
 import com.zhuchao.android.fbase.PlaybackEvent;
 import com.zhuchao.android.fbase.PlayerStatusInfo;
 import com.zhuchao.android.fbase.eventinterface.PlayerCallback;
@@ -184,15 +185,10 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
 
     @Override
     public void onClick(View v) {
-        ///findViewById(R.id.ivList).setOnClickListener(this);
-        ///findViewById(R.id.ivPrev).setOnClickListener(this);
-        ///findViewById(R.id.ivNext).setOnClickListener(this);
-        ///findViewById(R.id.ivPlay).setOnClickListener(this);
-        ///findViewById(R.id.ivEq).setOnClickListener(this);
         boolean isPlaying = Cabinet.getPlayManager().isPlaying();
         if (v.getId() == R.id.ivList) {
             Cabinet.getPlayManager().stopPlay();
-            openLocalActivity(MainVideoActivity.class);
+            finish();
         } else if (v.getId() == R.id.ivPrev) {
             Cabinet.getPlayManager().playPre();
         } else if (v.getId() == R.id.ivNext) {
@@ -203,6 +199,7 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
             else mImageViewPlayPause.setImageResource(R.drawable.selector_stop);
         } else if (v.getId() == R.id.ivEq) {
             Cabinet.getPlayManager().stopPlay();
+            openLocalActivity(EqualizerHomeActivity.class);
         }
     }
 
@@ -301,7 +298,7 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
                 break;
             case PlaybackEvent.Status_Stopped:
             case PlaybackEvent.Status_NothingIdle:
-                finish();
+//                finish();
                 break;
             case PlaybackEvent.Status_Playing:
                 mImageViewPlayPause.setImageResource(R.drawable.selector_stop);

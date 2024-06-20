@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -38,7 +39,7 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
 
         mProgressSeekBar = ((SeekBar) findViewById(R.id.musicSeekBar));
         mProgressSeekBar.setOnSeekBarChangeListener(this);
-        mProgressSeekBar.setThumb(new ColorDrawable(Color.TRANSPARENT));
+//        mProgressSeekBar.setThumb(new ColorDrawable(Color.TRANSPARENT));
         mTextViewCurrentTime = findViewById(R.id.tvCurrentTime);
         mTextViewTotalTime = findViewById(R.id.tvTotalTime);
         mImageViewPlayPause = findViewById(R.id.ivPlay);
@@ -87,7 +88,7 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
     protected void onResume() {
         super.onResume();
         OMedia oMedia = Cabinet.getPlayManager().getPlayingMedia();
-        if(oMedia != null) {
+        if (oMedia != null) {
             binding.tvMusicName.setText(oMedia.getMovie().getTitle());
             binding.tvAlbumName.setText(oMedia.getMovie().getAlbum());
             binding.tvArtistsName.setText(oMedia.getMovie().getArtist());
@@ -132,6 +133,7 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
         mProgressSeekBar.setProgress((int) playerStatusInfo.getTimeChanged());
         mTextViewCurrentTime.setText(convertMillisToTime(playerStatusInfo.getTimeChanged()));
         mTextViewTotalTime.setText(convertMillisToTime(playerStatusInfo.getLength()));
+        Log.d(TAG, "onEventPlayerStatus: " + (int) playerStatusInfo.getTimeChanged());
         switch (playerStatusInfo.getEventType()) {
             case PlaybackEvent.Status_Opening:
                 binding.tvMusicName.setText(oMedia1.getMovie().getTitle());
@@ -147,9 +149,11 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
                 break;
             case PlaybackEvent.Status_Playing:
                 mImageViewPlayPause.setImageResource(R.drawable.selector_stop);
+                binding.playPause.setText("Pause");
                 break;
             case PlaybackEvent.Status_Paused:
                 mImageViewPlayPause.setImageResource(R.drawable.selector_play);
+                binding.playPause.setText("Play");
                 break;
             default:
                 break;

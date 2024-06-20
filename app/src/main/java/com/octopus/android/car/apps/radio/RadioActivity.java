@@ -20,6 +20,7 @@ import com.car.ipc.ICallback;
 import com.car.ipc.IRemote;
 import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.databinding.ActivityRadioBinding;
+import com.octopus.android.car.apps.equalizer.EqualizerHomeActivity;
 import com.zhuchao.android.session.MApplication;
 import com.zhuchao.android.session.base.BaseActivity;
 
@@ -71,6 +72,7 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
         binding.viewDoubleCircle.setOnClickListener(this);
         binding.viewPTY.setOnClickListener(this);
         binding.viewSignal.setOnClickListener(this);
+        binding.viewEq.setOnClickListener(this);
 
         binding.seekBarFm.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -228,6 +230,8 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
             showAlertDialogPTY(ApiRadio.PTY_DISPLAY);
         } else if (v.getId() == R.id.viewSignal) {
             ApiRadio.loc(binding.viewSignal.isSelected() ? 0 : 1);
+        } else if (v.getId() == R.id.viewEq) {
+            openLocalActivity(EqualizerHomeActivity.class);
         }
 
     }

@@ -92,6 +92,7 @@ public class PlayingItemFragment extends BaseFragment {
             @Override
             public void onItemClick(int position, OMedia oMedia) {
                 if (oMedia != null) {
+                    Cabinet.getPlayManager().createPlayingListOrder(mVideoList);
                     Cabinet.getPlayManager().setMediaToPlay(oMedia);
                     openLocalActivity(VideoPlayingActivity.class);
                 }

@@ -15,6 +15,7 @@ import com.octopus.android.car.apps.audio.fragment.CollectionItemFragment;
 import com.octopus.android.car.apps.audio.fragment.FolderItemFragment;
 import com.octopus.android.car.apps.audio.fragment.PlayingItemFragment;
 import com.octopus.android.car.apps.databinding.ActivityMusicMainBinding;
+import com.octopus.android.car.apps.equalizer.EqualizerHomeActivity;
 import com.zhuchao.android.session.Cabinet;
 import com.zhuchao.android.session.base.BaseActivity;
 import com.zhuchao.android.session.base.BaseFragment;
@@ -56,7 +57,12 @@ public class MainMusicActivity extends BaseActivity implements View.OnClickListe
         binding.ivAlbums.setOnClickListener(this);
         binding.ivFolder.setOnClickListener(this);
         binding.ivCollection.setOnClickListener(this);
-        binding.ivEq.setOnClickListener(this);
+        binding.ivEq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLocalActivity(EqualizerHomeActivity.class);
+            }
+        });
 
         binding.tvPlayList.setOnClickListener(this);
         binding.tvArtists.setOnClickListener(this);
@@ -119,27 +125,32 @@ public class MainMusicActivity extends BaseActivity implements View.OnClickListe
         if (v.getId() == R.id.ivPlayList || v.getId() == R.id.tvPlayList) {
             ///replaceFragment(R.id.fragment_container, mPlayingItemFragment);
             viewPager.setCurrentItem(0);
-            v.setSelected(true);
+            binding.ivPlayList.setSelected(true);
+            binding.tvPlayList.setSelected(true);
             setColor(binding.tvPlayList, R.color.colorAccent);
         } else if (v.getId() == R.id.ivArtists || v.getId() == R.id.tvArtists) {
             ///replaceFragment(R.id.fragment_container, mArtistsItemFragment);
             viewPager.setCurrentItem(1);
-            v.setSelected(true);
+            binding.ivArtists.setSelected(true);
+            binding.tvArtists.setSelected(true);
             setColor(binding.tvArtists, R.color.colorAccent);
         } else if (v.getId() == R.id.ivAlbums || v.getId() == R.id.tvAlbums) {
             ///replaceFragment(R.id.fragment_container, mAlbumsItemFragment);
             viewPager.setCurrentItem(2);
-            v.setSelected(true);
+            binding.ivAlbums.setSelected(true);
+            binding.tvAlbums.setSelected(true);
             setColor(binding.tvAlbums, R.color.colorAccent);
         } else if (v.getId() == R.id.ivFolder || v.getId() == R.id.tvFolder) {
             ///replaceFragment(R.id.fragment_container, mFolderItemFragment);
             viewPager.setCurrentItem(3);
-            v.setSelected(true);
+            binding.ivFolder.setSelected(true);
+            binding.tvFolder.setSelected(true);
             setColor(binding.tvFolder, R.color.colorAccent);
         } else if (v.getId() == R.id.ivCollection || v.getId() == R.id.tvCollection) {
             ///replaceFragment(R.id.fragment_container, mCollectionItemFragment);
             viewPager.setCurrentItem(4);
-            v.setSelected(true);
+            binding.ivCollection.setSelected(true);
+            binding.ivCollection.setSelected(true);
             setColor(binding.tvCollection, R.color.colorAccent);
         }
     }

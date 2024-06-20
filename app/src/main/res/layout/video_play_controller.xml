@@ -67,11 +67,10 @@
         <ImageView
             android:id="@+id/ivList"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
+            android:layout_height="52dp"
             android:clickable="true"
             android:focusable="true"
-            android:paddingHorizontal="45dp"
+            android:paddingHorizontal="55dp"
             android:src="@drawable/selector_list" />
 
         <LinearLayout
@@ -135,11 +134,11 @@
         <ImageView
             android:id="@+id/ivEq"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
             android:clickable="true"
             android:focusable="true"
-            android:paddingHorizontal="50dp"
+            android:paddingHorizontal="55dp"
             android:src="@drawable/selector_eq" />
 
     </LinearLayout>
