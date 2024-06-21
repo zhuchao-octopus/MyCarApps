@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -23,6 +24,7 @@ import com.octopus.android.car.apps.databinding.FragmentBluetoothPhoneBinding;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A fragment representing a list of Items.
@@ -31,6 +33,7 @@ public class BluetoothPhoneFragment extends BaseViewBindingFragment<FragmentBlue
     private final String TAG = "BluetoothPhoneFragment";
     private static final String ARG_COLUMN_COUNT = "column-count";
     private BtPhoneBookAdapter btPhoneBookAdapter;
+    private List<PhoneBookBean> listTemp = new ArrayList<>();
 
     public BluetoothPhoneFragment() {
     }
@@ -51,6 +54,7 @@ public class BluetoothPhoneFragment extends BaseViewBindingFragment<FragmentBlue
 
     @Override
     protected void setListener() {
+        listTemp.clear();
         btPhoneBookAdapter = new BtPhoneBookAdapter(new ArrayList<>());
         binding.recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recycleView.setAdapter(btPhoneBookAdapter);
@@ -63,7 +67,6 @@ public class BluetoothPhoneFragment extends BaseViewBindingFragment<FragmentBlue
                     ApiBt.deleteContact(bookBeanList.get(0).getName(), bookBeanList.get(0).getNumber());
                     btPhoneBookAdapter.removeData(0);
                 }
-
             }
         });
         binding.etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -71,7 +74,11 @@ public class BluetoothPhoneFragment extends BaseViewBindingFragment<FragmentBlue
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     // 执行搜索操作
+                    Log.d(TAG, "onEditorAction: " + v.getText().toString().trim());
 
+                    String textInput = v.getText().toString().trim();
+                    List<PhoneBookBean> result = listTemp.stream().filter(item -> item.getName().contains(textInput) || item.getNumber().contains(textInput)).collect(Collectors.toList());
+                    btPhoneBookAdapter.setData(result);
                     // 隐藏软键盘
                     InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (imm != null) {
@@ -80,6 +87,12 @@ public class BluetoothPhoneFragment extends BaseViewBindingFragment<FragmentBlue
                     return true;
                 }
                 return false;
+            }
+        });
+        binding.ivDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApiBt.downloadBook();
             }
         });
     }
@@ -120,6 +133,7 @@ public class BluetoothPhoneFragment extends BaseViewBindingFragment<FragmentBlue
                 phoneBookBean.setName(name);
                 phoneBookBean.setNumber(number);
                 btPhoneBookAdapter.setDataItem(phoneBookBean);
+                listTemp.add(phoneBookBean);
                 break;
             case ApiBt.UPDATE_PBAP_STATE:
                 //电话本下载状态

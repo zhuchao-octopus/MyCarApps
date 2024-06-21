@@ -19,7 +19,7 @@
         <LinearLayout
             android:id="@+id/viewMusicInfo"
             android:layout_width="match_parent"
-            android:layout_height="195dp"
+            android:layout_height="225dp"
             android:orientation="horizontal"
             android:paddingLeft="110dp"
             android:paddingRight="183dp">
@@ -40,8 +40,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="57dp"
-                        android:layout_height="57dp"
+                        android:layout_width="45dp"
+                        android:layout_height="51dp"
                         android:background="@mipmap/bt_song" />
 
                     <TextView
@@ -49,6 +49,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:textSize="32sp"
                         tools:text="爱情废柴" />
@@ -61,8 +66,8 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="57dp"
-                        android:layout_height="57dp"
+                        android:layout_width="47dp"
+                        android:layout_height="44dp"
                         android:background="@mipmap/bt_author" />
 
                     <TextView
@@ -70,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
-                        android:textSize="36sp"
+                        android:textSize="32sp"
                         tools:text="周杰伦" />
 
                 </LinearLayout>
@@ -78,9 +83,10 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/image_iv"
                 android:layout_width="175dp"
                 android:layout_height="175dp"
-                android:layout_gravity="center"
+                android:layout_gravity="bottom"
                 android:src="@mipmap/music_cover" />
         </LinearLayout>
 
@@ -88,9 +94,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="-10dp"
             android:layout_weight="1"
             android:gravity="center">
-
 
             <FrameLayout
                 android:id="@+id/viewPrev"

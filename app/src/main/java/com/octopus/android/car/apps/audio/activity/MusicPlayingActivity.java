@@ -36,7 +36,7 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
         ///setContentView(R.layout.activity_music_playing);
         binding = ActivityMusicPlayingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.tvMusicName.setSelected(true);
         mProgressSeekBar = ((SeekBar) findViewById(R.id.musicSeekBar));
         mProgressSeekBar.setOnSeekBarChangeListener(this);
 //        mProgressSeekBar.setThumb(new ColorDrawable(Color.TRANSPARENT));
@@ -136,7 +136,8 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
         Log.d(TAG, "onEventPlayerStatus: " + (int) playerStatusInfo.getTimeChanged());
         switch (playerStatusInfo.getEventType()) {
             case PlaybackEvent.Status_Opening:
-                binding.tvMusicName.setText(oMedia1.getMovie().getTitle());
+            case PlaybackEvent.Status_Buffering:
+                binding.tvMusicName.setText(oMedia1.getMovie().getName());
                 binding.tvAlbumName.setText(oMedia1.getMovie().getAlbum());
                 binding.tvArtistsName.setText(oMedia1.getMovie().getArtist());
                 break;

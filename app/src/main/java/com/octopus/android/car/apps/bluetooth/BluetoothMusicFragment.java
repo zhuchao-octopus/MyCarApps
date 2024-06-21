@@ -99,8 +99,8 @@ public class BluetoothMusicFragment extends BaseViewBindingFragment<FragmentBlue
                 break;
             case ApiBt.UPDATE_ID3_ALBUM:
                 //sdk没有返回,暂定
-//                String album = params.getString("value");
-//                Log.d(TAG, "onUpdate album: " + album);
+                String album = params.getString("value");
+                Log.d(TAG, "onUpdate album: " + album);
                 break;
 
         }

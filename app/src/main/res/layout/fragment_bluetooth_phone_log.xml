@@ -76,6 +76,7 @@
             android:background="@drawable/selector_bt_dial_btn"
             android:clickable="true"
             android:scaleType="center"
+            android:visibility="gone"
             android:src="@mipmap/bt_remove"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivMissCallLog" />

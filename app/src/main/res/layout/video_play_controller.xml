@@ -70,7 +70,8 @@
             android:layout_height="52dp"
             android:clickable="true"
             android:focusable="true"
-            android:paddingHorizontal="55dp"
+            android:paddingLeft="75dp"
+            android:paddingRight="35dp"
             android:src="@drawable/selector_list" />
 
         <LinearLayout

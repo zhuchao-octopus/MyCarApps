@@ -48,7 +48,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="40dp"
-                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:scrollHorizontally="true"
                         android:textSize="32sp"
                         tools:text="爱情废柴" />
                 </LinearLayout>
@@ -59,8 +64,8 @@
                     android:layout_marginTop="8dp">
 
                     <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="42dp"
+                        android:layout_width="47dp"
+                        android:layout_height="44dp"
                         android:scaleType="center"
                         android:src="@mipmap/music_artist" />
 
@@ -152,6 +157,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_marginTop="20dp"
             android:gravity="center">
 
             <FrameLayout
