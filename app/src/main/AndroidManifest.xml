@@ -29,7 +29,7 @@
         <activity-alias
             android:name="MainVideoActivity"
             android:exported="true"
-            android:icon="@mipmap/ic_multimedia"
+            android:icon="@mipmap/ic_video_logo"
             android:label="@string/title_activity_video"
             android:targetActivity=".video.activity.MainVideoActivity">
             <intent-filter>
@@ -78,7 +78,7 @@
         <activity
             android:name=".audio.activity.MainMusicActivity"
             android:exported="true"
-            android:icon="@mipmap/music_cover"
+            android:icon="@mipmap/ic_music_logo"
             android:label="@string/title_activity_audio">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

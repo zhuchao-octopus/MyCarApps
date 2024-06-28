@@ -47,6 +47,7 @@ public class PlayingListAdapter extends RecyclerView.Adapter<PlayingListAdapter.
         ///holder.mIdView.setText(mValues.get(position).id);
         holder.mTextViewTitle.setText(mItemList.get(position).getName());
         holder.mTextViewSubTitle.setText(mItemList.get(position).getPathName());
+        holder.mTextViewTitle.setSelected(true);
         holder.mImageViewTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

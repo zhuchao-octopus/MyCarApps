@@ -35,7 +35,7 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
     protected Connection connection = new Connection(this);
     private int sBand, sFreq;
     private final String RADIO_PACKAGE_NAME = "com.car.radio";
-    private String[] recommendChannelFM = new String[]{"88.60", "89.80", "90.50", "90.70", "91.20", "94.20"};
+    private String[] recommendChannelFM = new String[]{"89.80", "94.20", "91.20", "95.80", "99.10", "101.20"};
     private String[] recommendChannelAM = new String[]{"522", "612", "635", "755", "845", "956"};
     private int progress = 0;
 

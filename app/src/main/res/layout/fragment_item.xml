@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp"
     android:paddingHorizontal="8dp">
 
     <LinearLayout
@@ -27,12 +28,13 @@
 
             <ImageView
                 android:id="@+id/iv_title"
-                android:layout_width="151dp"
-                android:layout_height="90dp"
+                android:layout_width="158dp"
+                android:layout_height="93dp"
                 android:background="@drawable/selector_recycler_item"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@mipmap/ic_video"
+                android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -40,12 +42,12 @@
             <LinearLayout
                 android:id="@+id/itemContentView"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="93dp"
                 android:background="@drawable/video_item_bg"
                 android:clickable="true"
                 android:focusable="true"
-                android:orientation="vertical"
                 android:gravity="center"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/ivStatus"
                 app:layout_constraintStart_toEndOf="@id/iv_title"
@@ -57,8 +59,13 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:clickable="false"
-                    android:focusable="false"
-                    android:maxLines="1"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:gravity="center|left"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
                     android:textColor="#ffffff"
                     android:textSize="30sp"
                     tools:text="测试视频文件名称" />
@@ -71,10 +78,10 @@
                     android:clickable="false"
                     android:ellipsize="marquee"
                     android:focusable="false"
-                    android:visibility="gone"
                     android:maxLines="1"
                     android:text="@string/textview_default"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <ImageView
