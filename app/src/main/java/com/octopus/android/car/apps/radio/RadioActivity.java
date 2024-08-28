@@ -3,7 +3,6 @@ package com.octopus.android.car.apps.radio;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
@@ -25,18 +24,16 @@ import com.zhuchao.android.session.MApplication;
 import com.zhuchao.android.session.base.BaseActivity;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class RadioActivity extends BaseActivity implements View.OnClickListener, Connection.OnCallbackListener {
     private static final String TAG = "RadioActivity";
-    private ActivityRadioBinding binding;
-    protected Connection connection = new Connection(this);
-    private int sBand, sFreq;
     private final String RADIO_PACKAGE_NAME = "com.car.radio";
-    private String[] recommendChannelFM = new String[]{"89.80", "94.20", "91.20", "95.80", "99.10", "101.20"};
-    private String[] recommendChannelAM = new String[]{"522", "612", "635", "755", "845", "956"};
+    private final String[] recommendChannelFM = new String[]{"89.80", "94.20", "91.20", "95.80", "99.10", "101.20"};
+    private final String[] recommendChannelAM = new String[]{"522", "612", "635", "755", "845", "956"};
+    protected Connection connection = new Connection(this);
+    private ActivityRadioBinding binding;
+    private int sBand, sFreq;
     private int progress = 0;
 
     @Override
@@ -47,7 +44,6 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
         binding = ActivityRadioBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initView();
-
     }
 
     private void initView() {
@@ -78,7 +74,7 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
             @Override
             public void onProgressChanged(SeekBar seekBar, int index, boolean fromUser) {
                 progress = index;
-//                ApiRadio.freq(ApiRadio.FREQ_DIRECT, progress);
+                //                ApiRadio.freq(ApiRadio.FREQ_DIRECT, progress);
             }
 
             @Override
@@ -96,7 +92,7 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
             @Override
             public void onProgressChanged(SeekBar seekBar, int index, boolean fromUser) {
                 progress = index;
-//                ApiRadio.freq(ApiRadio.FREQ_DIRECT, progress);
+                //                ApiRadio.freq(ApiRadio.FREQ_DIRECT, progress);
             }
 
             @Override
@@ -116,6 +112,7 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
      * @param list 频道内容
      * @param fmAm 0代表 fm  1代表 AM
      */
+    @SuppressLint("SetTextI18n")
     private void setChanelDate(String[] list, int fmAm) {
         //赋值到推荐频道
         if (fmAm == 0) {
@@ -342,6 +339,7 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
     /**
      * 更新FM/AM状态
      */
+    @SuppressLint("SetTextI18n")
     private void updateView() {
         if (sBand >= ApiRadio.BAND_AM_INDEX_BEGIN && sBand < ApiRadio.BAND_AM_INDEX_END) {
             //AM
@@ -387,6 +385,6 @@ public class RadioActivity extends BaseActivity implements View.OnClickListener,
     protected void onDestroy() {
         super.onDestroy();
         //关闭收音机
-//        CarService.me().cmd(ApiMain.CMD_KILL_APP, RADIO_PACKAGE_NAME);
+        //        CarService.me().cmd(ApiMain.CMD_KILL_APP, RADIO_PACKAGE_NAME);
     }
 }

@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.octopus.android.car.apps.R;
-import com.octopus.android.car.apps.video.activity.VideoPlayingActivity;
 import com.octopus.android.car.apps.common.adapter.FolderItemRecyclerViewAdapter;
+import com.octopus.android.car.apps.video.activity.VideoPlayingActivity;
 import com.zhuchao.android.fbase.DataID;
 import com.zhuchao.android.fbase.FileUtils;
 import com.zhuchao.android.fbase.MMLog;
@@ -36,9 +36,10 @@ import com.zhuchao.android.video.VideoList;
  * A fragment representing a list of Items.
  */
 public class FolderItemFragment extends BaseFragment {
-    private final String TAG = "FolderItemFragment";
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private final String TAG = "FolderItemFragment";
+    private final TTask tTask = new TTask("Scanning.folder.video");
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private FolderItemRecyclerViewAdapter mFolderItemRecyclerViewAdapter;
@@ -46,7 +47,6 @@ public class FolderItemFragment extends BaseFragment {
     private TextView mEmptyView;
     private ObjectList mFolderList = new ObjectList();
     private VideoList mVideoList;
-    private final TTask tTask = new TTask("Scanning.folder.video");
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

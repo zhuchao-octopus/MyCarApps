@@ -22,12 +22,12 @@ public class OMediaItemRecyclerViewAdapter extends RecyclerView.Adapter<OMediaIt
     private List<OMedia> mItemList;
     private OnItemClickListener onItemClickListener;
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        onItemClickListener = listener;
-    }
-
     public OMediaItemRecyclerViewAdapter(List<OMedia> items) {
         mItemList = items;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        onItemClickListener = listener;
     }
 
     public void setData(List<OMedia> items) {
@@ -89,6 +89,10 @@ public class OMediaItemRecyclerViewAdapter extends RecyclerView.Adapter<OMediaIt
         return mItemList.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position, OMedia oMedia);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final ImageView mImageViewTitle;
         public final TextView mTextViewTitle;
@@ -111,10 +115,6 @@ public class OMediaItemRecyclerViewAdapter extends RecyclerView.Adapter<OMediaIt
             return mItem;
         }
 
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position, OMedia oMedia);
     }
 
 }

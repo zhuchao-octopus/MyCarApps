@@ -6,7 +6,6 @@ import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -27,8 +26,8 @@ import java.util.Map;
  * 蓝牙配对页面
  */
 public class BluetoothPairFragment extends BaseViewBindingFragment<FragmentBluetoothPairBinding> implements BtPairAdapter.OnItemClickListener {
-    private final String TAG = "BluetoothPairFragment";
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private final String TAG = "BluetoothPairFragment";
     private BtPairAdapter btPairAdapter;
     private Map<String, String> hashMap = new HashMap<>();
 
@@ -58,7 +57,7 @@ public class BluetoothPairFragment extends BaseViewBindingFragment<FragmentBluet
         binding.ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ApiBt.queryPair(); //搜索周围蓝牙设备
+                //                ApiBt.queryPair(); //搜索周围蓝牙设备
                 ApiBt.discover(1); //搜索周围蓝牙设备
             }
         });
@@ -122,9 +121,9 @@ public class BluetoothPairFragment extends BaseViewBindingFragment<FragmentBluet
             switch (id) {
                 case ApiBt.UPDATE_PHONE_STATE:
                     //蓝牙连接状态
-//                    int value = params.getInt("value");
-//                    String phoneMacAddress = params.getString("phoneMacAddr");
-//                    String phoneName = params.getString("phoneName");
+                    //                    int value = params.getInt("value");
+                    //                    String phoneMacAddress = params.getString("phoneMacAddr");
+                    //                    String phoneName = params.getString("phoneName");
                     break;
                 case ApiBt.UPDATE_PAIR_LIST:
                     addDevice(params, true);

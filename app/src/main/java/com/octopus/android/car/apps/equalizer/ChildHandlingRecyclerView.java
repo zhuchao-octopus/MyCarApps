@@ -48,16 +48,15 @@ public class ChildHandlingRecyclerView extends RecyclerView {
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-//        if (mChildHandlesTouch) {
-//            return false;
-//        }
+        //        if (mChildHandlesTouch) {
+        //            return false;
+        //        }
         return false;
     }
 
     private boolean shouldCaptureEvent(View child, float x, float y) {
         x -= mInitialTouchX;
         y -= mInitialTouchY;
-        return x >= -child.getScrollX() && x < child.getWidth() + child.getScrollX()
-                && y >= -child.getScrollY() && y < child.getHeight() + child.getScrollY();
+        return x >= -child.getScrollX() && x < child.getWidth() + child.getScrollX() && y >= -child.getScrollY() && y < child.getHeight() + child.getScrollY();
     }
 }

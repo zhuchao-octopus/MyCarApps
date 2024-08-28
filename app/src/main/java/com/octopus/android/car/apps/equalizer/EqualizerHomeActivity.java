@@ -9,7 +9,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -21,9 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EqualizerHomeActivity extends BaseActivity implements View.OnClickListener {
+    private final String TAG = "EqualizerHomeActivity";
     private FragmentEqualizerHomeBinding binding;
     private String[] titleArr = {"Flat", "Pop", "Mormal", "News", "Jazz"};
-    private final String TAG = "EqualizerHomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

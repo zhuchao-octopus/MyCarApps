@@ -33,33 +33,27 @@ import java.util.Objects;
  * status bar and navigation/system bar) with user interaction.
  */
 public class VideoPlayingActivity extends BaseActivity implements PlayerCallback, View.OnClickListener, SeekBar.OnSeekBarChangeListener {
-    private final String TAG = "VideoPlayingActivity";
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
     private static final boolean AUTO_HIDE = true;
-
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
      * user interaction before hiding the system UI.
      */
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
     /**
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
-    private boolean mVisible = true;
+    private final String TAG = "VideoPlayingActivity";
     private final Handler mHideHandler = new Handler(Objects.requireNonNull(Looper.myLooper()));
+    private boolean mVisible = true;
     private ActivityVideoPlayingBinding binding;
     private SurfaceView mContentView;
     private View mControlsView;
-    private SeekBar mProgressSeekBar;
-    private TextView mTextViewCurrentTime;
-    private TextView mTextViewTotalTime;
-    private ImageView mImageViewPlayPause;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -72,7 +66,6 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
             mControlsView.setVisibility(View.GONE);
         }
     };
-
     private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
         public void run() {
@@ -84,6 +77,20 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
             mControlsView.setVisibility(View.VISIBLE);
         }
     };
+    /**
+     * Schedules a call to hide() in delay milliseconds, canceling any
+     * previously scheduled calls.
+     */
+    private final Runnable mHideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            hide();
+        }
+    };
+    private SeekBar mProgressSeekBar;
+    private TextView mTextViewCurrentTime;
+    private TextView mTextViewTotalTime;
+    private ImageView mImageViewPlayPause;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -269,17 +276,6 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
         mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
     }
 
-    /**
-     * Schedules a call to hide() in delay milliseconds, canceling any
-     * previously scheduled calls.
-     */
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
-
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
@@ -298,7 +294,7 @@ public class VideoPlayingActivity extends BaseActivity implements PlayerCallback
                 break;
             case PlaybackEvent.Status_Stopped:
             case PlaybackEvent.Status_NothingIdle:
-//                finish();
+                //                finish();
                 break;
             case PlaybackEvent.Status_Playing:
                 mImageViewPlayPause.setImageResource(R.drawable.selector_stop);

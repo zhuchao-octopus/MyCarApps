@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.octopus.android.car.apps.databinding.FragmentItemBinding;
 import com.octopus.android.car.apps.databinding.FragmentPlayingItemBinding;
 import com.zhuchao.android.video.OMedia;
 
@@ -23,12 +22,12 @@ public class PlayingListAdapter extends RecyclerView.Adapter<PlayingListAdapter.
     private List<OMedia> mItemList;
     private OnItemClickListener onItemClickListener;
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        onItemClickListener = listener;
-    }
-
     public PlayingListAdapter(List<OMedia> items) {
         mItemList = items;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        onItemClickListener = listener;
     }
 
     public void setData(List<OMedia> items) {
@@ -91,6 +90,10 @@ public class PlayingListAdapter extends RecyclerView.Adapter<PlayingListAdapter.
         return mItemList.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position, OMedia oMedia);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final ImageView mImageViewTitle;
         public final TextView mTextViewTitle;
@@ -113,10 +116,6 @@ public class PlayingListAdapter extends RecyclerView.Adapter<PlayingListAdapter.
             return mItem;
         }
 
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position, OMedia oMedia);
     }
 
 }

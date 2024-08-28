@@ -32,16 +32,17 @@ import com.zhuchao.android.video.VideoList;
  * A fragment representing a list of Items.
  */
 public class AlbumsItemFragment extends BaseFragment implements CommonItemRecyclerViewAdapter.OnItemClickListener<Object>, CommonItemRecyclerViewAdapter.OnBindViewHolderListener<Object> {
-    private static final String TAG = "AlbumsItemFragment";
-    private static final String ARG_COLUMN_COUNT = "column-count";
     public static final String ALBUM_TAG = "media.album.tag.";
     public static final String ARTIST_TAG = "media.artist.tag.";
+    private static final String TAG = "AlbumsItemFragment";
+    private static final String ARG_COLUMN_COUNT = "column-count";
+    private final TMediaMetadataManager tTMediaMetadataManager = Cabinet.getPlayManager().getMediaMetadataManager();
     private int mColumnCount = 1;
     private CommonItemRecyclerViewAdapter<Object> mCommonItemRecyclerViewAdapter;
     private RecyclerView mRecyclerView;
     private TextView mEmptyView;
-    private final TMediaMetadataManager tTMediaMetadataManager = Cabinet.getPlayManager().getMediaMetadataManager();
     private VideoList mVideoList;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -116,12 +117,9 @@ public class AlbumsItemFragment extends BaseFragment implements CommonItemRecycl
             ///holder.mImageViewTitle.setImageBitmap(AudioMetaFile.);
             holder.mTextViewTitle.setText(((MediaMetadata) item).getAlbum() + " (" + ((MediaMetadata) item).getCount() + ")");
             holder.mTextViewSubTitle.setText(((MediaMetadata) holder.mItem).getDescription());
-            if (((MediaMetadata) item).getBitmap() != null)
-                holder.mImageViewTitle.setImageBitmap(((MediaMetadata) item).getBitmap());
-            else
-                holder.mImageViewTitle.setImageResource(R.mipmap.ic_albums);
-        }
-        else if (item instanceof OMedia) {
+            if (((MediaMetadata) item).getBitmap() != null) holder.mImageViewTitle.setImageBitmap(((MediaMetadata) item).getBitmap());
+            else holder.mImageViewTitle.setImageResource(R.mipmap.ic_albums);
+        } else if (item instanceof OMedia) {
             holder.mTextViewTitle.setText(((OMedia) item).getName());
             holder.mTextViewSubTitle.setText(((OMedia) item).getPathName());
             holder.mImageViewTitle.setImageResource(R.mipmap.ic_music);

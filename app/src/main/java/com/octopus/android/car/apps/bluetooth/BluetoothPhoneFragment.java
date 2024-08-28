@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -30,8 +29,8 @@ import java.util.stream.Collectors;
  * A fragment representing a list of Items.
  */
 public class BluetoothPhoneFragment extends BaseViewBindingFragment<FragmentBluetoothPhoneBinding> {
-    private final String TAG = "BluetoothPhoneFragment";
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private final String TAG = "BluetoothPhoneFragment";
     private BtPhoneBookAdapter btPhoneBookAdapter;
     private List<PhoneBookBean> listTemp = new ArrayList<>();
 

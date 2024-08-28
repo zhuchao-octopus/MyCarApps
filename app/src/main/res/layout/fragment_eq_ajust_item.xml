@@ -23,13 +23,13 @@
             android:layout_height="match_parent"
             android:layout_marginHorizontal="1dp"
             android:max="20"
+            android:min="0"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
-            android:min="0"
-            android:thumbOffset="0dp"
             android:progress="10"
             android:progressDrawable="@null"
-            android:thumb="@mipmap/thumb_red" />
+            android:thumb="@mipmap/thumb_red"
+            android:thumbOffset="0dp" />
     </FrameLayout>
 
     <TextView

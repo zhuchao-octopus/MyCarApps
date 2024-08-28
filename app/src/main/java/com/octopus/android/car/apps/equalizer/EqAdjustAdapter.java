@@ -3,21 +3,15 @@ package com.octopus.android.car.apps.equalizer;
 import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.car.api.ApiBt;
-import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.bluetooth.bean.BTDevice;
 import com.octopus.android.car.apps.databinding.FragmentEqAjustItemBinding;
-import com.octopus.android.car.apps.databinding.ItemPairListBinding;
 
 import java.util.List;
 
@@ -28,6 +22,7 @@ public class EqAdjustAdapter extends RecyclerView.Adapter<EqAdjustAdapter.ViewHo
 
     private List<BTDevice> mItemList;
     private OnItemClickListener onItemClickListener;
+
     public EqAdjustAdapter(List<BTDevice> items, OnItemClickListener listener) {
         this.mItemList = items;
         this.onItemClickListener = listener;
@@ -56,10 +51,11 @@ public class EqAdjustAdapter extends RecyclerView.Adapter<EqAdjustAdapter.ViewHo
 
         holder.seekBarVol.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             private int progress;
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Log.d("onProgressChanged", "onProgressChanged: " + progress);
-                this.progress=progress;
+                this.progress = progress;
                 holder.eq_tv.setText(progress + "");
             }
 
@@ -79,6 +75,12 @@ public class EqAdjustAdapter extends RecyclerView.Adapter<EqAdjustAdapter.ViewHo
         return mItemList.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position, BTDevice folderBean);
+
+        void onDeleteItem(BTDevice folderBean);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private BTDevice mItem;
         private VerticalSeekBar seekBarVol;
@@ -95,12 +97,6 @@ public class EqAdjustAdapter extends RecyclerView.Adapter<EqAdjustAdapter.ViewHo
             return mItem;
         }
 
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position, BTDevice folderBean);
-
-        void onDeleteItem(BTDevice folderBean);
     }
 
 }

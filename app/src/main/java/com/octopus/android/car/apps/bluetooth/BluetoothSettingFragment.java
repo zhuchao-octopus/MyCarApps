@@ -14,15 +14,14 @@ import com.car.api.ApiBt;
 import com.car.ipc.ICallback;
 import com.car.ipc.IRemote;
 import com.octopus.android.car.apps.common.BaseViewBindingFragment;
-import com.octopus.android.car.apps.databinding.FragmentBluetoothPhoneBinding;
 import com.octopus.android.car.apps.databinding.FragmentBluetoothSettingBinding;
 
 /**
  * A fragment representing a list of Items.
  */
 public class BluetoothSettingFragment extends BaseViewBindingFragment<FragmentBluetoothSettingBinding> {
-    private final String TAG = "FolderItemFragment";
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private final String TAG = "FolderItemFragment";
 
     public BluetoothSettingFragment() {
     }
@@ -111,7 +110,7 @@ public class BluetoothSettingFragment extends BaseViewBindingFragment<FragmentBl
         }
         final EditText input = new EditText(getContext());
         builder.setView(input);
-//        AlertDialog alertDialog = builder.create();
+        //        AlertDialog alertDialog = builder.create();
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

@@ -26,19 +26,19 @@ public class CommonItemRecyclerViewAdapter<T> extends RecyclerView.Adapter<Commo
     ///private String mDataType;
     ///private FragmentItemBinding mFragmentItemBinding;
 
+    public CommonItemRecyclerViewAdapter() {
+    }
+
+    public CommonItemRecyclerViewAdapter(List<T> items) {
+        mItemList = items;
+    }
+
     public void setOnBindViewHolderListener(OnBindViewHolderListener<T> onBindViewHolderListener) {
         this.onBindViewHolderListener = onBindViewHolderListener;
     }
 
     public void setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
-    }
-
-    public CommonItemRecyclerViewAdapter() {
-    }
-
-    public CommonItemRecyclerViewAdapter(List<T> items) {
-        mItemList = items;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -118,6 +118,14 @@ public class CommonItemRecyclerViewAdapter<T> extends RecyclerView.Adapter<Commo
         return mItemList.size();
     }
 
+    public interface OnItemClickListener<T> {
+        void onItemClick(final ViewHolder<T> holder, View v, int position, T obj);
+    }
+
+    public interface OnBindViewHolderListener<T> {
+        void onBindViewHolder(ViewHolder<T> holder, T item, int position);
+    }
+
     public static class ViewHolder<T> extends RecyclerView.ViewHolder {
         public final ImageView mImageViewTitle;
         public final TextView mTextViewTitle;
@@ -144,13 +152,5 @@ public class CommonItemRecyclerViewAdapter<T> extends RecyclerView.Adapter<Commo
         public String toString() {
             return super.toString() + " '" + mTextViewSubTitle.getText() + "'";
         }
-    }
-
-    public interface OnItemClickListener<T> {
-        void onItemClick(final ViewHolder<T> holder, View v, int position, T obj);
-    }
-
-    public interface OnBindViewHolderListener<T> {
-        void onBindViewHolder(ViewHolder<T> holder, T item, int position);
     }
 }

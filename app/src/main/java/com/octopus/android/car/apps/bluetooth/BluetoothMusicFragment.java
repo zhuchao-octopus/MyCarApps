@@ -12,14 +12,13 @@ import com.car.ipc.IRemote;
 import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.common.BaseViewBindingFragment;
 import com.octopus.android.car.apps.databinding.FragmentBluetoothMusicBinding;
-import com.octopus.android.car.apps.databinding.FragmentBluetoothPhoneBinding;
 
 /**
  * A fragment representing a list of Items.
  */
 public class BluetoothMusicFragment extends BaseViewBindingFragment<FragmentBluetoothMusicBinding> implements View.OnClickListener {
-    private final String TAG = "BluetoothMusicFragment";
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private final String TAG = "BluetoothMusicFragment";
 
     public BluetoothMusicFragment() {
     }
@@ -42,7 +41,7 @@ public class BluetoothMusicFragment extends BaseViewBindingFragment<FragmentBlue
     protected void setListener() {
         //如果需要蓝牙音乐出声音，就需要切蓝牙音乐通道
         ApiMain.appId(ApiMain.APP_ID_BTAV, ApiMain.APP_ID_BTAV);
-//        ApiMain.appId(ApiMain.APP_ID_AUDIO_PLAYER, ApiMain.APP_ID_AUDIO_PLAYER);
+        //        ApiMain.appId(ApiMain.APP_ID_AUDIO_PLAYER, ApiMain.APP_ID_AUDIO_PLAYER);
         binding.viewNext.setOnClickListener(this);
         binding.viewPlay.setOnClickListener(this);
         binding.viewPrev.setOnClickListener(this);

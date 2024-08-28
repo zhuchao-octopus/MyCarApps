@@ -1,37 +1,21 @@
 package com.octopus.android.car.apps.bluetooth;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.car.api.ApiBt;
 import com.car.ipc.ICallback;
 import com.car.ipc.IRemote;
-import com.octopus.android.car.apps.bluetooth.adapter.BtPhoneBookAdapter;
-import com.octopus.android.car.apps.bluetooth.bean.PhoneBookBean;
 import com.octopus.android.car.apps.common.BaseViewBindingFragment;
-import com.octopus.android.car.apps.databinding.FragmentBluetoothPhoneBinding;
 import com.octopus.android.car.apps.databinding.FragmentCallingBinding;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 拨打电话界面
  */
 public class BluetoothCallingFragment extends BaseViewBindingFragment<FragmentCallingBinding> {
-    private final String TAG = "BluetoothPhoneFragment";
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private final String TAG = "BluetoothPhoneFragment";
 
     public BluetoothCallingFragment() {
     }

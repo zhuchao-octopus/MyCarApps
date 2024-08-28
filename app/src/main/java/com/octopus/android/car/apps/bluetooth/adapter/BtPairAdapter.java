@@ -1,7 +1,6 @@
 package com.octopus.android.car.apps.bluetooth.adapter;
 
 import android.annotation.SuppressLint;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,12 +48,12 @@ public class BtPairAdapter extends RecyclerView.Adapter<BtPairAdapter.ViewHolder
         notifyItemMoved(index, 0);
     }
 
-    public void setData(List<BTDevice> items) {
-        mItemList = items;
-    }
-
     public List<BTDevice> getData() {
         return mItemList;
+    }
+
+    public void setData(List<BTDevice> items) {
+        mItemList = items;
     }
 
     public void setDataItem(BTDevice items) {
@@ -122,6 +121,12 @@ public class BtPairAdapter extends RecyclerView.Adapter<BtPairAdapter.ViewHolder
         return mItemList.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position, BTDevice folderBean);
+
+        void onDeleteItem(BTDevice folderBean);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public BTDevice mItem;
         private TextView textView;
@@ -139,12 +144,6 @@ public class BtPairAdapter extends RecyclerView.Adapter<BtPairAdapter.ViewHolder
             return mItem;
         }
 
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position, BTDevice folderBean);
-
-        void onDeleteItem(BTDevice folderBean);
     }
 
 }

@@ -36,12 +36,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tabGravity="center"
             app:tabIndicatorHeight="0dp"
-            app:tabPaddingStart="10dp"
             app:tabMaxWidth="0dp"
             app:tabMode="fixed"
-            app:tabTextColor="@color/white"
+            app:tabPaddingStart="10dp"
             app:tabSelectedTextColor="@color/colorAccent"
-            app:tabTextAppearance="@style/MyCustomTabTextAppearance" />
+            app:tabTextAppearance="@style/MyCustomTabTextAppearance"
+            app:tabTextColor="@color/white" />
 
         <ImageView
             android:id="@+id/eq_last"

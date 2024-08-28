@@ -29,9 +29,9 @@ import com.zhuchao.android.video.VideoList;
  * A fragment representing a list of Items.
  */
 public class PlayingItemFragment extends BaseFragment {
-    private final String TAG = "PlayItemFragment";
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private final String TAG = "PlayItemFragment";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private PlayingListAdapter mPlayingListAdapter;

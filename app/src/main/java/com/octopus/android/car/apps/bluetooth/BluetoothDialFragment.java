@@ -26,10 +26,34 @@ import com.octopus.android.car.apps.databinding.FragmentBluetoothDialBinding;
  * A fragment representing a list of Items.
  */
 public class BluetoothDialFragment extends BaseViewBindingFragment<FragmentBluetoothDialBinding> implements View.OnClickListener {
-    private final String TAG = "BluetoothDialFragment";
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private final String TAG = "BluetoothDialFragment";
 
     public BluetoothDialFragment() {
+    }
+
+    public static String getPhoneStateString(int state) {
+        switch (state) {
+            //已断开
+            case ApiBt.PHONE_STATE_DISCONNECTED:
+                return "";
+            //连接中
+            case ApiBt.PHONE_STATE_LINK:
+                return "";
+            //已连接
+            case ApiBt.PHONE_STATE_CONNECTED:
+                return "";
+            case ApiBt.PHONE_STATE_DIAL:
+                return "拨号中";
+            case ApiBt.PHONE_STATE_RING:
+                return "响铃中/来电";
+            case ApiBt.PHONE_STATE_TALK:
+                return "通话中";
+            //配对中
+            case ApiBt.PHONE_STATE_PAIR:
+                return "";
+        }
+        return "未知";
     }
 
     @Override
@@ -50,7 +74,7 @@ public class BluetoothDialFragment extends BaseViewBindingFragment<FragmentBluet
                     public void onClick(View v) {
                         // 处理点击事件
                         if (binding.tvPhoneNumber.getText().toString().length() > 12) {
-//                            Toast.makeText(getContext(), "号码错误", Toast.LENGTH_SHORT).show();
+                            //                            Toast.makeText(getContext(), "号码错误", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         String number = binding.tvPhoneNumber.getText().toString();
@@ -106,7 +130,7 @@ public class BluetoothDialFragment extends BaseViewBindingFragment<FragmentBluet
             ApiBt.hang();
         } else if (v.getId() == R.id.viewVoice) {
             //音量调节
-//            showDialog();
+            //            showDialog();
             CarService.me().cmd(ApiSound.CMD_VOL, ApiSound.VOL_SHOW_UI);
         }
 
@@ -166,30 +190,6 @@ public class BluetoothDialFragment extends BaseViewBindingFragment<FragmentBluet
                 binding.phoneState.setText(phoneStr);
                 break;
         }
-    }
-
-    public static String getPhoneStateString(int state) {
-        switch (state) {
-            //已断开
-            case ApiBt.PHONE_STATE_DISCONNECTED:
-                return "";
-            //连接中
-            case ApiBt.PHONE_STATE_LINK:
-                return "";
-            //已连接
-            case ApiBt.PHONE_STATE_CONNECTED:
-                return "";
-            case ApiBt.PHONE_STATE_DIAL:
-                return "拨号中";
-            case ApiBt.PHONE_STATE_RING:
-                return "响铃中/来电";
-            case ApiBt.PHONE_STATE_TALK:
-                return "通话中";
-            //配对中
-            case ApiBt.PHONE_STATE_PAIR:
-                return "";
-        }
-        return "未知";
     }
 
     @Override

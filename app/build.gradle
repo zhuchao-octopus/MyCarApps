@@ -36,15 +36,9 @@ android {
         enabled = true
     }
     packagingOptions {
-        pickFirst 'lib/x86/libc++_shared.so'
-        pickFirst 'lib/x86_64/libc++_shared.so'
-        pickFirst 'lib/arm64-v8a/libc++_shared.so'
-        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
-
-        pickFirst 'lib/x86/libopencv_java4.so'
-        pickFirst 'lib/x86_64/libopencv_java4.so'
-        pickFirst 'lib/armeabi-v7a/libopencv_java4.so'
-        pickFirst 'lib/arm64-v8a/libopencv_java4.so'
+        jniLibs {
+            pickFirsts += ['lib/x86/libc++_shared.so', 'lib/x86_64/libc++_shared.so', 'lib/arm64-v8a/libc++_shared.so', 'lib/armeabi-v7a/libc++_shared.so', 'lib/x86/libopencv_java4.so', 'lib/x86_64/libopencv_java4.so', 'lib/armeabi-v7a/libopencv_java4.so', 'lib/arm64-v8a/libopencv_java4.so']
+        }
     }
 
     signingConfigs {
@@ -80,11 +74,11 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    implementation('com.zhuchao.android:libBaseUtils:2.2@aar')//框架基础类
+    implementation('com.zhuchao.android:libBaseUtils:2.2.1@aar')//框架基础类
     implementation('com.zhuchao.android:libCameraUtils:1.0@aar')//相机控制
     ///implementation('com.zhuchao.android:libDecodeCore:1.6@aar')//音视频解码库
     implementation('com.zhuchao.android:libDNetUtils:2.1@aar')//网络接口
-    implementation('com.zhuchao.android:libFOSUtils:1.4@aar')//平台接口
+    implementation('com.zhuchao.android:libFOSUtils:1.4.2@aar')//平台接口
     implementation('com.zhuchao.android:libFPersistUtils:1.2:@aar')//数据存储
     implementation('com.zhuchao.android:libGXMediaUtils:2.0@aar')//媒体管理类
     implementation('com.zhuchao.android:libGXPlayerUtils:3.0@aar')//播放器

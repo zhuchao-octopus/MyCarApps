@@ -28,9 +28,9 @@ import java.util.List;
  * EqAdjustFragment
  */
 public class EqAdjustFragment extends BaseViewBindingFragment<FragmentEqAjustBinding> implements View.OnClickListener {
+    private static final String ARG_COLUMN_COUNT = "column-count";
     private final String TAG = "EqAdjustFragment";
     private EqAdjustAdapter eqAdjustAdapter;
-    private static final String ARG_COLUMN_COUNT = "column-count";
     private GestureDetector gestureDetector;
     private float lastX, lastY;
 

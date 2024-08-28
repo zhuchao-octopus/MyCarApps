@@ -35,19 +35,18 @@ import com.zhuchao.android.video.VideoList;
  * create an instance of this fragment.
  */
 public class ArtistsItemFragment extends BaseFragment implements CommonItemRecyclerViewAdapter.OnItemClickListener<Object>, CommonItemRecyclerViewAdapter.OnBindViewHolderListener<Object> {
+    public static final String ALBUM_TAG = "media.album.tag.";
+    public static final String ARTIST_TAG = "media.artist.tag.";
     private static final String TAG = "ArtistsItemFragment";
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    public static final String ALBUM_TAG = "media.album.tag.";
-    public static final String ARTIST_TAG = "media.artist.tag.";
+    private final TMediaMetadataManager tTMediaMetadataManager = Cabinet.getPlayManager().getMediaMetadataManager();
     private int mColumnCount = 1;
     private CommonItemRecyclerViewAdapter<Object> mCommonItemRecyclerViewAdapter;
     private RecyclerView mRecyclerView;
     private TextView mEmptyView;
     private VideoList mVideoList;
-    private final TMediaMetadataManager tTMediaMetadataManager = Cabinet.getPlayManager().getMediaMetadataManager();
 
     public ArtistsItemFragment() {
         // Required empty public constructor

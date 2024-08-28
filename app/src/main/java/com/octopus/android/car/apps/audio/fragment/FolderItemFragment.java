@@ -39,6 +39,7 @@ public class FolderItemFragment extends BaseFragment {
     private static final String TAG = "FolderItemFragment";
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private final TTask tTask = new TTask("Scanning.folder.audio");
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private FolderItemRecyclerViewAdapter mFolderItemRecyclerViewAdapter;
@@ -46,7 +47,6 @@ public class FolderItemFragment extends BaseFragment {
     private TextView mEmptyView;
     private ObjectList mFolderList = new ObjectList();
     private VideoList mVideoList;
-    private final TTask tTask = new TTask("Scanning.folder.audio");
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the

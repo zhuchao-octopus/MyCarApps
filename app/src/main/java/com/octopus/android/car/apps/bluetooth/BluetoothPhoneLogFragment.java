@@ -1,6 +1,5 @@
 package com.octopus.android.car.apps.bluetooth;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.text.TextUtils;
@@ -16,24 +15,23 @@ import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.bluetooth.adapter.BtPhoneBookAdapter;
 import com.octopus.android.car.apps.bluetooth.bean.PhoneBookBean;
 import com.octopus.android.car.apps.common.BaseViewBindingFragment;
-import com.octopus.android.car.apps.databinding.FragmentBluetoothPhoneBinding;
 import com.octopus.android.car.apps.databinding.FragmentBluetoothPhoneLogBinding;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * A fragment representing a list of Items.
  */
 public class BluetoothPhoneLogFragment extends BaseViewBindingFragment<FragmentBluetoothPhoneLogBinding> implements View.OnClickListener {
-    private final String TAG = "BluetoothPhoneLogFragment";
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private final String TAG = "BluetoothPhoneLogFragment";
     private BtPhoneBookAdapter btPhoneBookAdapter;
     private List<PhoneBookBean> callIn = new ArrayList<>();
     private List<PhoneBookBean> callOut = new ArrayList<>();
     private List<PhoneBookBean> callMiss = new ArrayList<>();
+    private int sPhoneState;
+
     public BluetoothPhoneLogFragment() {
     }
 
@@ -81,8 +79,6 @@ public class BluetoothPhoneLogFragment extends BaseViewBindingFragment<FragmentB
                 ApiBt.UPDATE_PHONE_STATE,//蓝牙状态
         }, iCallback, true);
     }
-
-    private int sPhoneState;
 
     @Override
     public void onUpdate(Bundle params) {
@@ -152,7 +148,7 @@ public class BluetoothPhoneLogFragment extends BaseViewBindingFragment<FragmentB
         } else if (v.getId() == R.id.ivMissCallLog) {
             btPhoneBookAdapter.setData(callMiss);
         } else if (v.getId() == R.id.ivDelete) {
-           //删除记录
+            //删除记录
             List<PhoneBookBean> bookBeanList = btPhoneBookAdapter.getBookDate();
             if (!bookBeanList.isEmpty()) {
                 Log.d(TAG, "onClick: " + bookBeanList.size());

@@ -1,8 +1,6 @@
 package com.octopus.android.car.apps.audio.activity;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +11,6 @@ import android.widget.TextView;
 import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.databinding.ActivityMusicPlayingBinding;
 import com.zhuchao.android.fbase.DataID;
-import com.zhuchao.android.fbase.MMLog;
 import com.zhuchao.android.fbase.PlaybackEvent;
 import com.zhuchao.android.fbase.PlayerStatusInfo;
 import com.zhuchao.android.fbase.eventinterface.PlayerCallback;
@@ -39,7 +36,7 @@ public class MusicPlayingActivity extends BaseActivity implements PlayerCallback
         binding.tvMusicName.setSelected(true);
         mProgressSeekBar = ((SeekBar) findViewById(R.id.musicSeekBar));
         mProgressSeekBar.setOnSeekBarChangeListener(this);
-//        mProgressSeekBar.setThumb(new ColorDrawable(Color.TRANSPARENT));
+        //        mProgressSeekBar.setThumb(new ColorDrawable(Color.TRANSPARENT));
         mTextViewCurrentTime = findViewById(R.id.tvCurrentTime);
         mTextViewTotalTime = findViewById(R.id.tvTotalTime);
         mImageViewPlayPause = findViewById(R.id.ivPlay);

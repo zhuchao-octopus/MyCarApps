@@ -6,7 +6,6 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.car.ipc.Connection;
 import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.databinding.FragmentBluetoothHomeBinding;
 import com.zhuchao.android.session.base.BaseActivity;

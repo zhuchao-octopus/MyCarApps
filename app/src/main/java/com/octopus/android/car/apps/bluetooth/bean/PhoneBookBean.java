@@ -32,10 +32,6 @@ public class PhoneBookBean {
 
     @Override
     public String toString() {
-        return "PhoneBookBean{" +
-                "name='" + name + '\'' +
-                ", number='" + number + '\'' +
-                ", time=" + time +
-                '}';
+        return "PhoneBookBean{" + "name='" + name + '\'' + ", number='" + number + '\'' + ", time=" + time + '}';
     }
 }

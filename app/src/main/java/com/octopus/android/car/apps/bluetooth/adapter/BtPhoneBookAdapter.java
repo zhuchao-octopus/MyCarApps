@@ -1,24 +1,17 @@
 package com.octopus.android.car.apps.bluetooth.adapter;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.car.api.ApiBt;
-import com.octopus.android.car.apps.R;
 import com.octopus.android.car.apps.bluetooth.bean.PhoneBookBean;
-import com.octopus.android.car.apps.databinding.ItemPairListBinding;
 import com.octopus.android.car.apps.databinding.ItemPhoneListBinding;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -80,6 +73,11 @@ public class BtPhoneBookAdapter extends RecyclerView.Adapter<BtPhoneBookAdapter.
         return mItemList.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position, PhoneBookBean folderBean);
+
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public PhoneBookBean mItem;
         private TextView name;
@@ -94,11 +92,6 @@ public class BtPhoneBookAdapter extends RecyclerView.Adapter<BtPhoneBookAdapter.
         public PhoneBookBean getItem() {
             return mItem;
         }
-
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position, PhoneBookBean folderBean);
 
     }
 
